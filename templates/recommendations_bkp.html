@@ -1,0 +1,160 @@
+{% extends "base.html" %}
+{% block content %}
+<!-- Actual Content -->
+<!-- TODO: No gutter -->
+<h4>Patient Similarities Dashboard</h4>
+<div id="log"></div>
+<div class="container-fluid">
+    <div class="row no-gutters">
+        <div class="col-2">
+            <!--
+            1. A patient id would always be known at pre-hand by physician at care.
+            2. Criteria for similar. This is the set of combinations of the
+            questions that we think can be there. Identifies the sub group discovery.
+            3. Since we have static and dynamic data. This option will help visualizing them and compare.
+            4. Recommend button to accept this form and perform computations. -->
+            <form id="dash-recom-form" class="card p-3 bg-light" method="POST">
+                <div class="form-group">
+                    <label for="PatientId">Patient Identifier</label>
+                    <input type="text" class="form-control" name="patient-id" id="patient-id" value="{{user_id}}"
+                           disabled>
+                    <input type="hidden" class="form-control" name="patient-id" id="patientId" value="{{user_id}}">
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" name="static-checkbox" id="static-checkbox"
+                           value="1">
+                    <label class="form-check-label" for="static-boxlabel">Static Data</label>
+                    &nbsp;
+                    <input class="form-check-input" type="checkbox" name="dynamic-checkbox" id="dynamic-checkbox"
+                           value="1">
+                    <label class="form-check-label" for="dynamic-boxlabel">Dynamic Data</label>
+                </div>
+                <div id="sim-sel-frm-grp" class="form-group">
+                    <label for="similarity-criteria">Questionnaire Item-list Combinations</label>
+                    <select class="form-control" name="sim-sel-grp" id="sim-sel-grp">
+                        <!-- Populate with ajax -->
+                        <!--option name="background" value="background">Background</option> -->
+                        <option name="all" value="overall">All Combinations</option>
+                        <option name="bg_tinnitus_history" value="bg_tinnitus_history">TSCHQ.Background and Tinnitus
+                            History(02-18)
+                        </option>
+                        <option name="modifying_influences" value="modifying_influences">TSCHQ.Modifying
+                            Influences(19-25), HQ.(01-04)
+                        </option>
+                        <option name="related_conditions" value="related_conditions">TSCHQ.Related Conditions(26-35),
+                            HQ.(01-04)
+                        </option>
+                        <!--option name="hearing_influences" value="hearing_influences">Hearing Influences</option> -->
+                    </select>
+                </div>
+                &nbsp;&nbsp;&nbsp;<br/><br/>
+                <div class="col-sm-10">
+                    <button id="recom-sub-id" type="submit" class="btn btn-primary">Identify Similar Neighbors</button>
+                </div>
+            </form>
+        </div>
+        <br/><br/>
+        <div class="col-10" style="border: 1px solid #212529; margin:0; background: #dadada;">
+            <h5>Visualization, Exploration and prediction for Static data</h5>
+            <div class="row no-gutters">
+                <div id="query_plot_static" class="col-8 card my-col" style="margin-left:10px;">
+                    <div id="card_header_static" class="card-header bg-info"></div>
+                    <div class="card-body">
+                        <div id="query-ts-static" style="width:950px;height:250px">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br/><br/>
+            <div class="row my-row no-gutters">
+                <div id="cardContainer" class="col-sm-3 card" style="width:310;height:500;margin-left:10px;">
+                    <!-- Col-1 static data fgd with click to here -->
+                    <div id="fd_static" class="card-header bg-info"></div>
+                    <div class="card-body">
+                        <div id="static-legend" class="float-right width-auto-p3">
+                            <svg id="my-legend" class="float-right" height=100 width=150>
+                            </svg>
+                        </div>
+                        <div id="force-direct">
+                            <script src="../static/js/d3-fds.js"></script>
+                        </div>
+                    </div>
+                </div>
+                <br/><br/>
+                <div class="col-sm-3 my-col card" style="width:250px;height:650px; margin-left:10px;">
+                    <div id="hm_static" class="card-header bg-info"></div>
+                    <div class="card-body">
+                        <div id="heat-map"></div>
+                    </div>
+
+                </div>
+                <br/><br/>
+                <!-- Col-2 click ajax from visualization of static data to here -->
+                <div class="col-sm-5 my-col card" style="width:500;height:510;margin-left:10px;">
+                    <div id="ts_static" class="card-header bg-info"></div>
+                    <div class="card-body">
+                        <div class="row no-gutters">
+                            <div id="ts-vis-statq">
+                            </div>
+                        </div>
+                        <div class="row no-gutters">
+                            <div id="ts-vis-statnn">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br/><br/>
+            <h5>Visualization, Exploration and prediction for dynamic data</h5>
+            <div class="row no-gutters">
+                <div id="query_plot_dynamic" class="col-8 card my-col" style="margin-left:10px;">
+                    <div id="card_header_dynamic" class="card-header bg-info"></div>
+                    <div class="card-body">
+                        <div id="query-ts-dynamic" style="width:950px;height:250px">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br/><br/>
+            <div class="row my-row no-gutters">
+                <div id="cardContainer-ts" class="col-3 card" style="width:350;height:510;margin-left:10px;">
+                    <!-- Col-1 static data fgd with click to here -->
+                    <div id="fd_dynamic" class="card-header bg-info"></div>
+                    <div class="card-body">
+                        <div id="dynamic-legend" class="float-right width-auto-p3">
+                            <svg id="my-legend-ts" class="float-right" height=100 width=150>
+                            </svg>
+                        </div>
+                        <div id="force-direct-ts">
+                            <script src="../static/js/d3-fds.js"></script>
+                        </div>
+                    </div>
+                </div>
+                <br/><br/>
+
+                <div class="col-7 card my-col" style="margin-left:10px;">
+                    <!-- ROW 2 COL 2 -->
+                    <div id="ts_dynamic" class="card-header bg-info"></div>
+                    <div class="card-body">
+                        <div class="row no-gutters">
+                            <div id="ts-vis-query">
+
+                            </div>
+                        </div>
+                        <div class="row no-gutters">
+                            <div id="ts-vis-target">
+                            </div>
+                        </div>
+
+                    </div>
+                    <br/><br/>
+                    <!-- Col-4 click ajax from visualization to here -->
+                </div>
+            </div>
+            <br/><br/>
+            <!-- Main row extend -->
+        </div>
+    </div>
+</div>
+{% endblock %}
+

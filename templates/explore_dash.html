@@ -1,0 +1,313 @@
+{% extends "base.html" %}
+{% block content %}
+<h4>User Exploration Dashboard</h4>
+<div id="log"></div>
+<div id="loader"></div>
+<div class="container-fluid">
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <div class='col-md-12'>
+    <div class='row'>
+      <div class='col-md-12' style='margin-top: -50px;'>
+        <ul class='nav nav-tabs' id="myTab" role="tablist">
+          <li class='nav-item'><a class="nav-link active" id="boxplot-tab" data-toggle="tab" href='#box_plot_exploration'
+                                  role="tab" aria-controls="box" aria-selected="true">Attribute Exploration</a>
+          </li>
+          <li class="nav-item"><a class="nav-link" id="nobs-tab" data-toggle="tab" href='#nobs_vis'
+          role="tab" aria-controls="nobs" aria-selected="false">Number of Observation Exploration</a>
+          </li>
+          <!--
+            <li class="nav-item"><a class="nav-link" id="cmb-nobs" data-toggle="tab" href='#total_obs'
+          role="tab" aria-controls="cmb-nobs" aria-selected="false">Combined NObservations over days</a>
+          </li> -->
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="tab-content">
+    <div id='box_plot_exploration' class='tab-pane show active' role="tabpanel" aria-labelledby="boxplot-tab">
+       <div class="row no-gutters">
+        <div class="col-12" style="border: 1px solid #212529; margin:0; background: #dadada;">
+            <h4></h4>
+            <div class="row no-gutters">
+                <div class="card col-3" style="margin-left:40px; margin-top:10px;">
+                <div class="card-header bg-light">User Id Selection</div>
+                <div class="card-body">
+                <div class="form-group">
+						<label for="user_ids">User Id</label>
+						<select class="form-control" class="box_user_sel" id="user_ids_boxplot_select">
+                            {% for id in construct_data["user_ids"] %}
+                                <option> User-{{id}}</option>
+                            {% endfor %}
+						</select>
+						</div>
+                </div>
+                </div>
+            <div class="card col-3" style="margin-left:40px; margin-top:10px;">
+                <div class="card-header bg-light">Attributes Selection</div>
+                <div class="card-body">
+                <div class="form-group">
+						<label for="vars">Attributes</label>
+						<select class="form-control" class="box_user_sel" id="attr_boxplot_select">
+                                <!-- Attribute assignment could not be dynamic. Needs further work -->
+                                <option>s02</option>
+                                <option>s03</option>
+                                <option>s04</option>
+                                <option>s05</option>
+                                <option>s06</option>
+                                <option>s07</option>
+						</select>
+						</div>
+                </div>
+            </div>
+                <div class="card col-3" style="margin-left:40px; margin-top:10px;">
+                <div class="card-header bg-light">Year Selection</div>
+                <div class="card-body">
+                <div class="form-group">
+						<label for="vars">Year</label>
+						<select class="form-control" class="box_user_sel" id="year_box_select">
+                             {% for year in construct_data["data_years"] %}
+                            <option> {{year}} </option>
+                            {% endfor %}
+
+                            <!--
+                            <option>2018</option>
+                                <option>2019</option> -->
+						</select>
+						</div>
+                    <br/>
+                    <div class="form-group">
+                        <label for="vars_month">Month Selection for analysis</label>
+                    <select class="form-control" class="box_user_sel" id="month_box_select">
+                            {% for month in construct_data["months"] %}
+                                <option> {{month}}</option>
+                            {% endfor %}
+                    </select>
+                    </div>
+                </div>
+            </div>
+            </div>
+                <br/>
+            <div class="row my-row no-gutters">
+                <div id="user_boxplot_var" class="col-6 card my-col" style="margin-left:3.5px; max-width:100%; max-height:100%;">
+                    <div id="card_header_boxplot_var" class="card-header bg-light">
+					</div>
+                    <div class="card-body">
+                        <!-- style="width:780px;height:290px" -->
+                        <div id="user_boxplot_vars" >
+                        </div>
+                    </div>
+                </div>
+                <div id="user_boxplot_hr" class="col-5 card my-col" style="margin-left:3.5px; max-width:100%; max-height:100%;">
+                    <div id="card_header_boxplot_hr" class="card-header bg-light">
+					</div>
+                    <div class="card-body">
+                        <!-- style="width:780px;height:290px" -->
+                        <div id="user_boxplot_hrs" >
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br/><br/>
+            <!-- <div class="row my-row no-gutters">
+                <div id="user_boxplot_loudness" class="col-6 card my-col" style="margin-left:5px;max-width:100%; max-height:100%;">
+                    <div id="card_header_boxplot_s02" class="card-header bg-light">
+					User Tinnitus Loudness(s02) box plot
+					</div>
+                    <div class="card-body">
+                         style="width:780px;height:290px"
+                        <div id="user_boxplot_s02" >
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br/><br/>-->
+        </div>
+    </div>
+	</div>
+    <div id='nobs_vis' class='tab-pane' role="tabpanel" aria-labelledby="nobs-tab" style="width:100%; height:100%;">
+	<div class="row no-gutters">
+	<div class="col-12" style="border: 1px solid #212529; margin-left:5px;margin-top:15px; background: #dadada;">
+                <h4></h4>
+            <div class="row no-gutters" style="margin-left:40px; margin-top:10px;">
+                <div class="card col-3" style="margin-left:40px; margin-top:10px;">
+                    <div class="card-header bg-light"> Select User Id</div>
+                    <div class="card-body">
+                    <div class="form-group">
+                            <label for="user_ids">User_ids</label>
+                            <select class="form-control" id="user_ids_nobsbarplot_select">
+                                {% for id in construct_data["user_ids"] %}
+                                    <option> User-{{id}}</option>
+                                {% endfor %}
+                            </select>
+                            </div>
+                        <div class="form-group">
+                            <label for="user_ids">Plot Type</label>
+                            <select class="form-control" id="nobs_plot_type">
+                                    <option>bar</option>
+                                    <option disabled>box</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="card col-3" style="margin-left:40px; margin-top:10px;">
+                <div class="card-header bg-light">Year Selection</div>
+                <div class="card-body">
+                <div class="form-group">
+						<label for="vars">Year</label>
+						<select class="form-control" class="box_user_sel" id="year_nobsbox_select">
+                            {% for year in construct_data["data_years"] %}
+                                <option> {{year}} </option>
+                            {% endfor %}
+                            <!--<option>2018</option>
+                                <option>2019</option>-->
+						</select>
+						</div>
+                    <br/>
+                <div class="form-group">
+                        <label for="vars_month">Month Selection for analysis</label>
+                        <select class="form-control" class="box_user_sel" id="month_nobsbox_select">
+                            {% for month in construct_data["months"] %}
+                                <option> {{month}}</option>
+                            {% endfor %}
+                        </select>
+                </div>
+                </div>
+            </div>
+            <div class="card col-5" style="margin-left:5px; margin-top:5px;">
+                <div class="card-body">
+                     <div id="usr_bar_m_overview">
+                        </div>
+                </div>
+            </div>
+            </div>
+                <br/>
+                <div class="row my-row no-gutters">
+                <div id="cardContainer" class="col-8 card" style="margin-left:5px;width:100%;height:100%;">
+                    <!-- Col-1 static data fgd with click to here -->
+                    <div id="users_barplot" class="card-header bg-light">
+					</div>
+
+                    <div class="card-body">
+                        <!-- style="width:780px;height:290px" -->
+                        <div id="user_barplot_s03" >
+                        </div>
+                    </div>
+                </div>
+                <br/><br/>
+                <!-- Col-2 click ajax from visualization of static data to here -->
+                    <div class="alert alert-light" id="details_nobs_bar" style="margin-left:20px; display:none;">
+                        <!-- Data from the server -->
+                        <button type="button" id="nobs_alert_info" class="close">
+                        &times;
+                        </button>
+                    </div>
+
+                </div>
+            <br/><br/>
+
+
+           <!-- <div class="row my-row no-gutters">
+                <div id="card_contained" class="col-10 card" style="margin-left:5px;width:100%; height:100%;">
+                    <div id="users_barplot_s02" class="card-header bg-light">
+					</div>
+                    <div class="card-body">
+                         style="width:780px;height:290px"
+                        <div id="user_barplot_s02" >
+                        </div>
+                    </div>
+                </div>
+                <br/><br/>
+                </div> -->
+            <br/><br/>
+    </div>
+	</div>
+	</div>
+    <!--
+    <div id='total_obs' class='tab-pane' role="tabpanel" aria-labelledby="cmb-nobs">
+	<div class="row no-gutters">
+	<div class="col-12" style="border: 1px solid #212529; margin:0; background: #dadada;">
+            <h4> All users box plots exploration over days</h4>
+            <div class="row no-gutters card w-75" style="margin-left:40px; margin-top:10px;">
+                <div class="card-header bg-light">Criteria</div>
+                <div class="card-body">
+                <div class="form-group">
+						<label for="group_labels">Select Criteria</label>
+						<select class="form-control" id="select_box_criteria">
+                                <option>day_hour</option>
+                                <option>day</option>
+						</select>
+						</div>
+                 <div class="form-group">
+						<label for="group_labels">Select Variable</label>
+						<select class="form-control" id="select_variable_criteria">
+                                <option>Tinnitus_Distress</option>
+                                <option>Tinnitus_Loudness</option>
+						</select>
+						</div>
+                </div>
+                </div>
+                </div>
+            </div>
+            <div id="boxplot_day_criteria" style="position: relative; top: 0; right: 0; bottom: 0; left: 0;">
+                         style="width:780px;height:290px"
+                        <div id="boxplot_combined" style="width:100%;height:100%">
+                        </div>
+            </div>
+    </div> -->
+  </div>
+</div>
+<footer>
+    <!-- D3.js -->
+    <script src="../static/js/d3.v4.min.js"></script>
+    <!-- jQuery -->
+    <script src="../static/js/jquery-3.4.1.min.js"></script>
+    <!-- Plotly.js -->
+    <script src="../static/js/plotly-latest.min.js"></script>
+    <script src="../static/js/plots_ajax.js"></script>
+    <script type="text/javascript">
+
+        var graphs = {{construct_data["box_graph_json"] | safe}};
+        var bar_graphs = {{construct_data["bar_graph_json"] | safe}};
+        //var cmb_box_graphs = {{cmb_box_graph_json | safe }}
+        var config = {displayModeBar: false, responsive:true, editable:true};
+        //, scrollZoom:true};
+        //var ids = {{ids | safe}};
+        var bar_overview = {{construct_data["box_graph_monthly_overview"] | safe}}
+
+
+        //Bar graph overview
+        Plotly.plot("usr_bar_m_overview",
+                     bar_overview.data,
+                     bar_overview.layout || {}, config);
+
+        //Box plot for each users
+        Plotly.plot("user_boxplot_vars",
+                        graphs[0].data,
+                        graphs[0].layout || {}, config);
+
+        Plotly.plot("user_boxplot_hrs",
+                graphs[1].data,
+                graphs[1].layout || {}, config);
+
+        //Plotly.plot("user_boxplot_s02",
+        //                graphs[1].data,
+        //                graphs[1].layout || {}, config);
+
+        //Bar plot for number of observations
+        Plotly.plot("user_barplot_s03",
+                        bar_graphs[0].data,
+                        bar_graphs[0].layout || {}, config);
+
+        //Plotly.plot("user_barplot_s02",
+        //                bar_graphs[1].data,
+        //                bar_graphs[1].layout || {}, config);
+
+
+        //Plotly.plot("boxplot_combined",
+        //                cmb_box_graphs.data,
+        //                cmb_box_graphs.layout || {}, config);
+
+    </script>
+</footer>
+{% endblock %}

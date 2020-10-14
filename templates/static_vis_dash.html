@@ -1,0 +1,230 @@
+<!-- Modal -->
+<div class="modal fade" id="user_highlight_modal" tabindex="-1" role="dialog" aria-labelledby="usr_hgl_modal" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="usr_hgl_modal"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- Box plots must come here -->
+		<div class="form-group">
+			<label for="vars">Years</label>
+			<select class="form-control" class="box_user_sel" id="sel_usr_year_box_select">
+                    <option>2018</option>
+                    <option>2019</option>
+			</select>
+		</div>
+        <div class="form-group">
+             <label for="vars_month">Month Selection for analysis</label>
+             <select class="form-control" class="box_user_sel" id="sel_usr_box_m_select">
+             </select>
+       </div>
+		<div id="sel_usr_boxplot" >
+         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Plot information -->
+<!-- Modal -->
+<div class="modal fade" id="compare_plot_info" tabindex="-1" role="dialog" aria-labelledby="compare_plot_info_modal" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="compare_plot_info_modal">
+            Session is created by grouping hours of the patient entire observations
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+<table class="table table-sm table-bordered ">
+    <thead>
+      <tr>
+        <th>Session</th>
+        <th>From</th>
+        <th>To</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Early Morning</td>
+        <td>04:00</td>
+        <td>08:00</td>
+      </tr>
+      <tr>
+        <td>Morning</td>
+        <td>08:00</td>
+        <td>12:00</td>
+      </tr>
+      <tr>
+        <td>Afternoon</td>
+        <td>12:00</td>
+        <td>16:00</td>
+      </tr>
+      <tr>
+        <td>Evening</td>
+        <td>16:00</td>
+        <td>20:00</td>
+      </tr>
+      <tr>
+        <td>Night</td>
+        <td>20:00</td>
+        <td>0:00</td>
+      </tr>
+      <tr>
+        <td>Late Night</td>
+        <td>0:00</td>
+        <td>4:00</td>
+      </tr>
+    </tbody>
+  </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Distance information -->
+<!-- Modal -->
+<div class="modal fade visualization_info" tabindex="-1" role="dialog" aria-labelledby="visualization_info_modal" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <!-- <div id="innerCircle-data-info">
+          </div> -->
+          <!--<div id="zscore-data-info">
+          </div>-->
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal Distance information -->
+<!-- Modal -->
+<div class="modal fade distance_info" tabindex="-1" role="dialog" aria-labelledby="distance_info_modal" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <div id="table-data-info" class="table-responsive">
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<h5>Visualization, Exploration and prediction for Static data</h5>
+            <div class="row no-gutters">
+                <div id="query_plot_static" class="col-10 card my-col" style="margin-left:10px;">
+                    <div id="card_header_static" class="card-header bg-info"></div>
+                    <div class="card-body">
+                        <!--p id="exp_more" class="card-text"></p> -->
+                          <!-- <div class="form-group">
+						<label for="user_ids">Select Prediction Method</label>
+
+                           <select class="form-control" id="prediction_select">
+                                <option>weighted_average</option>
+                                <option>linear_regression</option>
+						</select>
+						</div>-->
+                        <!-- style="width:780px;height:290px" -->
+                        <div id="pred_legend_static" class="float-right width-auto-p3">
+                        </div>
+                        <div id="query-ts-static" >
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br/><br/>
+            <div class="row my-row no-gutters">
+                <div id="cardContainer" class="col-sm-3 card" style="width:310;height:500;margin-left:10px;">
+                    <!-- Col-1 static data fgd with click to here -->
+                    <div id="fd_static" class="card-header bg-info"></div>
+                    <div class="card-body">
+                        <h6 id="click-table-info"></h6>
+                        <h6 style="display:none;" id="click-vis-info"></h6>
+                        <div id="static-legend" class="float-right width-auto-p3">
+                        </div>
+                        <div id="force-direct">
+                            <script src="../static/js/vis/common_module.js"></script>
+                            <script src="../static/js/vis/heatmap_js.js"></script>
+                            <script src="../static/js/vis/ts_compare.js"></script>
+                            <script src="../static/js/vis/d3-wrapper.js"></script>
+                            <script src="../static/js/vis/plot_box_compare.js"></script>
+                            <!--script src="../static/js/d3-fds.js"></script>-->
+                        </div>
+                        <div style="border:0.5px dashed grey" id="zscore-data-info">
+                        </div>
+                        <br/><br/>
+                        <div style="border:0.5px dashed grey" id="innerCircle-data-info">
+                        </div>
+                    </div>
+                </div>
+                <br/><br/>
+                <!-- Col-2 click ajax from visualization of static data to here -->
+                <div class="col-sm-5 my-col card" style="width:510;height:550;margin-left:10px;">
+                    <div id="ts_static" class="card-header bg-info">
+                        <span style='color:white;'> Plot Information - <a class='btn' id='session_plot_info'><i class="fas fa-info-circle fa-xs"></i></i></a></span>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+						<label for="phy_var" style="display:none;">Variable Selection</label>
+                           <select class="form-control" id="static_plot_vars" style="display:none;">
+                                <option val="s02">s02</option>
+                                <option val="s03">s03</option>
+                                <option val="s04">s04</option>
+                                <option val="s05">s05</option>
+                                <option val="s06">s06</option>
+                                <option val="s07">s07</option>
+						</select>
+                    </div>
+                        <!--
+                        <div class="form-group">
+                        <label for="var_year">Year Selection</label>
+                           <select class="form-control" id="static_plot_years">
+                                <option val="2018">2018</option>
+                                <option val="2019">2019</option>
+						</select>
+                        </div>
+                        <div class="form-group">
+                        <label for="var_year">Month Selection</label>
+                           <select class="form-control" id="static_plot_months">
+						</select>
+						</div>
+						-->
+                        <div class="row no-gutters">
+                            <div id="ts-vis-statq">
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="row no-gutters">
+                            <div id="ts-vis-statnn">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br/><br/>
+                <div class="col-sm-3 my-col card" style="width:250px;height:650px; margin-left:10px;">
+                    <div id="hm_static" class="card-header bg-info"></div>
+                    <div class="card-body">
+                        <div id="heat-map"></div>
+                    </div>
+                </div>
+            </div>
+            <br/><br/>

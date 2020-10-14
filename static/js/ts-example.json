@@ -1,0 +1,28 @@
+{
+	"node": [{
+			"date": "1",
+			"rating": "5",
+			"outcome": "0"
+		},
+		{
+			"date": "2",
+			"rating": "4",
+			"outcome": "0"
+		},
+		{
+			"date": "3",
+			"rating": "3",
+			"outcome": "1"
+		},
+		{
+			"date": "4",
+			"rating": "5",
+			"outcome": "0"
+		},
+		{
+			"date": "5",
+			"rating": "5",
+			"outcome": "0"
+		}
+	]
+}

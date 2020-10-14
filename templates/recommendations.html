@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block content %}
+<h4>User Similarities Dashboard</h4>
+<div id="log"></div>
+<div id="loader"></div>
+<div class="container-fluid">
+    <div class="row no-gutters">
+        <div class="col-2">
+            <!--
+            1. A patient id would always be known at pre-hand by physician at care.
+            2. Criteria for similar. This is the set of combinations of the
+            questions that we think can be there. Identifies the sub group discovery.
+            3. Since we have static and dynamic data. This option will help visualizing them and compare.
+            4. Recommend button to accept this form and perform computations. -->
+            <form id="dash-recom-form" class="card p-3 bg-light" method="POST">
+                <div class="form-group">
+                    <label for="PatientId">User Identifier</label>
+                    <input type="text" class="form-control" name="patient-id" id="patient-id" value="{{user_id}}"
+                           disabled>
+                    <input type="hidden" class="form-control" name="patient-id" id="patientId" value="{{user_id}}">
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" name="static-checkbox" id="static-checkbox"
+                           value="1">
+                    <label class="form-check-label" for="static-boxlabel">Static Data</label>
+                    &nbsp;
+                    {% if simulate == "False" or simulate == "False" %}
+                        <input class="form-check-input" type="checkbox" name="dynamic-checkbox" id="dynamic-checkbox"
+                               value="1">
+                        <label class="form-check-label" for="dynamic-boxlabel">EMA</label>
+                    {% endif %}
+                </div>
+                <div id="sim-sel-frm-grp" class="form-group">
+                    <label for="similarity-criteria">Questionnaire Item-list Combinations</label>
+                    <select class="form-control" name="sim-sel-grp" id="sim-sel-grp" disabled>
+                        <!-- Populate with ajax -->
+                        <!--option name="background" value="background">Background</option> -->
+                        <option name="all" value="overall">C4 - All Combinations</option>
+                        <option name="bg_tinnitus_history" value="bg_tinnitus_history">C1 - TSCHQ.Background and Tinnitus
+                            History(02-18)
+                        </option>
+                        <option name="modifying_influences" value="modifying_influences">C2 - TSCHQ.Modifying
+                            Influences(19-25), HQ.(01-04)
+                        </option>
+                        <option name="related_conditions" value="related_conditions">C3 - TSCHQ.Related Conditions(26-35),
+                            HQ.(01-04)
+                        </option>
+                        <!--option name="hearing_influences" value="hearing_influences">Hearing Influences</option> -->
+                    </select>
+                </div>
+                &nbsp;&nbsp;&nbsp;<br/><br/>
+                <div class="col-sm-10">
+                    <button id="recom-sub-id" type="submit" class="btn btn-primary">Identify Similar Neighbors</button>
+                </div>
+                <input type="hidden"  class="form-control" name="simulate" id="simulate" value="{{simulate}}">
+            </form>
+        </div>
+        <br/><br/>
+        <div class="col-10" style="border: 1px solid #212529; margin:0; background: #dadada;">
+            <script src="../static/js/vis/common_module.js"></script>
+            <!--script src="../static/js/vis/plot_box_compare.js"></script> -->
+            <script src="../static/js/vis/heatmap_js.js"></script>
+            <script src="../static/js/vis/ts_compare.js"></script>
+            <script src="../static/js/vis/d3-wrapper.js"></script>
+            <script src="../static/js/vis/plot_box_compare.js"></script>
+            <!--script src="../static/js/common_func.js"></script>
+            <script src="../static/js/heat_map_q.js"></script>-->
+            <!--script src="../static/js/d3-fds.js"></script> -->
+            <!--script src="../static/js/time_series_prediction.js"></script>-->
+           <div id="nn_slider" style="margin-left:20px;"> Number of Nearest Neighbors <b>(k)</b>: <input id="kval" style="margin-left:100px;" data-slider-id='kvalSlider' type="text"
+                   data-slider-min="3" data-slider-max="11" data-slider-step="2" data-slider-value="5"/></div>
+            <div id="static_template"></div>
+            <div id="dynamic_template"></div>
+        </div>
+    </div>
+</div>
+{% endblock %}

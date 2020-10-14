@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container-fluid">
+<h3>Details of Test Users Questionnaire Submissions</h3>
+<div class="table-responsive-lg">
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">User_Id</th>
+      <th scope="col">Gender</th>
+      <th scope="col">Family History of tinnitus</th>
+      <th scope="col">Initial Onset time</th>
+      <th scope="col">Initial Onset Mode</th>
+      <!--th scope="col">Pattern</th> -->
+      <!--th scope="col">Site</th> -->
+      <th scope="col">Loudness</th>
+      <th scope="col">Percentage Awake time</th>
+      <th scope="col">Natural Masking</th>
+      <th scope="col">Effect of Head and Neck Movement</th>
+      <th scope="col">Effects of stress</th>
+      <th scope="col">Intolerance to noise</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for user in test_data.users %}
+    <tr>
+      <th id="user_id" scope="row">{{user.user_id}}</th>
+      <td>{{user.tschq02}}</td>
+      <td>{{user.tschq04}}</td>
+      <td>{{user.tschq05}}</td>
+      <td>{{user.tschq06}}</td>
+      <!--td>{{user.tschq08}}</td> -->
+      <td>{{user.tschq12}}</td>
+      <td>{{user.tschq16}}</td>
+      <td>{{user.tschq19}}</td>
+      <td>{{user.tschq21}}</td>
+      <td>{{user.tschq24}}</td>
+      <td>{{user.tschq28}}</td>
+      {% if simulate %}
+        <td><a href="{{url_for('recommend', user_id = user.user_id, simulate = simulate)}}" class="btn btn-primary">Identify Similar Pathway</a></td>
+      {% else %}
+          <td><a href="{{url_for('recommend', user_id = user.user_id, simulate = simulate)}}" class="btn btn-primary">Identify Similar Pathway</a></td>
+      {% endif %}
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+</div>
+{% endblock %}

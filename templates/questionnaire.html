@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container py-8">
+<h1>Tinnitus case history Questionnaire</h1>
+<form action="{{ url_for('questionnaire') }}" class="card p-3 bg-white" method="POST">
+  {% for q in questionnaire.questions %}
+    {% if q.questiontype == "TextDate" or q.questiontype == "TextString" %}
+        <div class="form-group card p-3 bg-light">
+        <label for="{{ q.label }}">{{q.question}}</label>
+        <input type="text" class="form-control" id="{{q.label}}" name="{{q.label}}">
+        </div>
+    {% endif %}
+
+    {% if q.questiontype == "TextArea" %}
+        <div class="form-group card p-3 bg-light">
+        <label for="{{ q.label }}">{{q.question}}</label>
+        <input type="text" class="form-control" id="{{q.label}}" name="{{q.label}}">
+        </div>
+    {% endif %}
+
+    {% if q.questiontype == "SingleChoice" %}
+        <div class="form-group card p-3 bg-light">
+        <label for="{{ q.label }}">{{q.question}}</label><br/>
+        <!-- Single choice inputs -->
+            {% for o in q['values'] %}
+            <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="{{q.label}}" id="{{q.label}}" value="{{o}}">
+            <label class="form-check-label" for="{{ q.label }}">{{o}}</label>
+            </div>
+            {% endfor %}
+        </div>
+     {% endif %}
+
+        {% if q.questiontype == "MultipleChoice"%}
+        <div class="form-group card p-3 bg-light">
+        <label for="{{ q.label }}">{{q.question}}</label>
+        <!-- Single choice inputs -->
+            <div class="form-check form-check-inline">
+        {% for o in q['values'] %}
+            <input class="form-check-input" type="checkbox" name="{{q.label}}" value="{{o}}">
+            <label class="form-check-label" for="{{ q.label }}">{{o}}</label>
+            <br/>
+            {% endfor %}
+         </div>
+        </div>
+    {% endif %}
+
+     {% if q.questiontype == "YesNoSwitch" %}
+        <div class="form-group card p-3 bg-light">
+        <label for="{{ q.label }}">{{q.question}}</label><br/>
+        <!-- Single choice inputs -->
+    			        <div class="input-group">
+                            <div id="radioBtn" class="btn-group">
+                                {% for o in q['values'] %}
+    					            <a class="btn btn-primary btn-sm active" data-toggle="{{q.label}}" data-title="{{o}}">{{o}}</a>
+    				             {% endfor %}
+                            </div>
+    				<input type="hidden" name="{{q.label}}" id="{{q.label}}">
+    			</div>
+    		    </div>
+    {% endif %}
+
+    {% if q.questiontype == "Slider" %}
+        <div class="form-group card p-3 bg-light">
+        <label for="{{ q.label }}">{{q.question}}</label><br/>
+        <!-- Single choice inputs -->
+    			        <div class="slidecontainer">
+                                <input type="range" min="0" max="100" value="0" class="slider" id="ranSlider" name="{{q.label}}">
+                                <p>Value: <span id="rangeVal"></span></p>
+                        </div>
+    			</div>
+    {% endif %}
+
+
+  {% endfor %}
+  <input type="submit" value="Submit the questionnaire">
+</form>
+</div>
+{% endblock %}

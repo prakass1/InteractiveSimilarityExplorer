@@ -1,0 +1,17 @@
+{
+"nodes":
+[
+{"id": "112", "label":"PatientX","group": 1,"query": 0,"gender": "M"},
+{"id": "150", "label":"PatientY","group": 1,"query": 1,"gender": "M"},
+{"id": "156", "label":"PatientZ","group": 1,"query": 1,"gender": "M"},
+{"id": "123", "label":"PatientA","group": 2,"query": 1,"gender": "M"},
+{"id": "167", "label":"PatientB","group": 3,"query": 1,"gender": "F"},
+{"id": "P6", "label":"PatientC","group": 3,"query": 1,"gender": "M"}
+],
+"links":
+[
+{"source": "112", "target": "150", "score": 0.5},
+{"source": "112", "target": "170", "score": 0.8},
+{"source": "112", "target": "156", "score": 0.2}
+]
+}

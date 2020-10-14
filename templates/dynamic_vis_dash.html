@@ -1,0 +1,112 @@
+<!-- Modal Distance information -->
+<!-- Modal -->
+<div class="modal fade dyn-visualization_info" tabindex="-1" role="dialog" aria-labelledby="visualization_info_modal" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+         <!-- <div id="dyn-innerCircle-data-info">
+          </div> -->
+         <!-- <div id="dyn-zscore-data-info">
+          </div> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal Distance information -->
+<!-- Modal -->
+<div class="modal fade dyn-distance_info" tabindex="-1" role="dialog" aria-labelledby="distance_info_modal" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <div id="dyn_table-data-info" class="table-responsive">
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h5>Visualization, Exploration and prediction for dynamic data</h5>
+            <div class="row no-gutters">
+                <div id="query_plot_dynamic" class="col-10 card my-col" style="margin-left:10px;">
+                    <div id="card_header_dynamic" class="card-header bg-info"></div>
+                    <div class="card-body">
+                        <!-- style="width:780px;height:290px" -->
+                        <div id="pred_legend_dynamic" class="float-right width-auto-p3">
+                        </div>
+                        <div id="query-ts-dynamic">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br/><br/>
+            <div class="row my-row no-gutters">
+                <div id="cardContainer-ts" class="col-3 card" style="width:350;height:510;margin-left:10px;">
+                    <!-- Col-1 static data fgd with click to here -->
+                    <div id="fd_dynamic" class="card-header bg-info"></div>
+                    <div class="card-body">
+                        <div id="dynamic-legend" class="float-right width-auto-p3">
+                            <h6 id="click-table1-info"></h6>
+                            <h6 style="display:none;" id="click-vis1-info"></h6>
+                            <svg id="my-legend-ts" class="float-right" height=2 width=150>
+                            </svg>
+                        </div>
+                        <div id="force-direct-ts">
+                            <script src="../static/js/vis/common_module.js"></script>
+                            <script src="../static/js/vis/heatmap_js.js"></script>
+                            <script src="../static/js/vis/ts_compare.js"></script>
+                            <script src="../static/js/vis/d3-wrapper.js"></script>
+                            <script src="../static/js/vis/plot_box_compare.js"></script>
+                            <!--<script src="../static/js/d3-fds.js"></script>-->
+                        </div>
+                        <div style="border:0.5px dashed grey" id="dyn-zscore-data-info">
+                         </div>
+                        <br/><br/>
+                        <div style="border:0.5px dashed grey" id="dyn-innerCircle-data-info">
+                        </div>
+                    </div>
+                </div>
+                <br/><br/>
+
+                <div class="col-7 card my-col" style="margin-left:10px;">
+                    <!-- ROW 2 COL 2 -->
+                    <div id="ts_dynamic" class="card-header bg-info"></div>
+                    <div class="card-body">
+                       <div class="form-group">
+                           <label for="phy_var">EMA Variables Selection</label>
+                           <select class="form-control" id="dynamic_plot_vars" style="display:none;">
+                                <option val="s02">s02</option>
+                                <option val="s03">s03</option>
+                                <option val="s04">s04</option>
+                                <option val="s05">s05</option>
+                                <option val="s06">s06</option>
+                                <option val="s07">s07</option>
+						</select>
+						</div>
+                        <div class="row no-gutters">
+                            <div id="ts-vis-query">
+                            </div>
+                        </div>
+                        <div class="row no-gutters">
+                            <div id="ts-vis-target">
+                            </div>
+                        </div>
+
+                    </div>
+                    <br/><br/>
+                    <!-- Col-4 click ajax from visualization to here -->
+                </div>
+            </div>
+            <br/><br/>
+            <!-- Main row extend -->

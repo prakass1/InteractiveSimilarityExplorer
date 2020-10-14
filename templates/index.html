@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container py-8">
+    &nbsp;&nbsp;&nbsp;
+    <div class="center-screen card" style="width: 450px;">
+        <div class="center-screen card-header">
+              {% if error %}
+                    <p class=error><strong>Error:</strong> {{ error }}
+              {% endif %}
+        </div>
+    <div class="card-body">
+        <h3>Identify yourself to the system:</h3>
+        <form action="{{ url_for('application') }}">
+        <div id="form-group">
+        <select name="identifiers" class="custom-select">
+        <option selected disabled>Select your option</option>
+        <option value="1">Physician Views</option>
+        <option value="2">User Registration</option>
+        </select>
+                <div class="col text-center">
+                     <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+
+        </div>
+        </form>
+    </div>
+   </div>
+</div>
+{% endblock %}

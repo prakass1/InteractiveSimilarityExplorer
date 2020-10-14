@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block content %}
+{% if identifier=="patient" %}
+<div class="container py-8">
+<h1>Tinnitus case history</h1>
+<p> Description of the questionnaire</p>
+<div class="row">
+<div class="col-6">
+<div class="card" style="width: 450px;">
+  <div class="card-body">
+    <h5 class="card-title">Tinnitus case history questionnaire</h5>
+    <p class="card-text"></p>
+    <a href="{{ url_for('questionnaire') }}" class="btn btn-primary">To the questions</a>
+  </div>
+</div>
+</div>
+</div>
+</div>
+
+{% elif identifier=="physician" %}
+<div class="container py-8">
+<h1>User Detailed Views</h1>
+  <p> Explore User data and similarities </p>
+<div class="row">
+<div class="col-6">
+<div class="card" style="width: 450px;">
+  <div class="card-body">
+    <h5 class="card-title">Exploration Dashboard</h5>
+    <p class="card-text">
+      <i style="float:right;" class="far fa-chart-bar fa-2x"></i>
+    </p>
+    <a href="{{ url_for('explore_dash') }}" class="btn btn-primary">To the Dashboard</a>
+  </div>
+</div>
+</div>
+<div class="col-6">
+<div class="card" style="width: 450px;">
+  <div class="card-body">
+    <h5 class="card-title">User Similarity Identification</h5>
+    <p class="card-text">
+      <i style="float:right;" class="fas fa-users fa-2x"></i>
+    </p>
+    <a href="{{ url_for('similarity_dash', simulate=false) }}" class="btn btn-primary">To the Dashboard</a>
+  </div>
+</div>
+</div>
+</div>
+</div>
+
+<!--
+<div class="card" style="width:400px;">
+    <div class="card-body">
+        <p> Click for visualization of patient similarities</p><button id="sim-patient-static" type="button" class="btn btn-primary">Patient Similarity Visualization</button>
+        <p> Click for questionnaire information</p><button id="questionnaire" type="button" class="btn btn-secondary">Questionnaire</button>
+    </div>
+</div-->
+<!-- D3.js force-direct graph here -->
+
+{% endif %}
+
+{% endblock %}

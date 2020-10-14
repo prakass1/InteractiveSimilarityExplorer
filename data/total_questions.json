@@ -1,0 +1,408 @@
+{
+    "questions": [{
+            "id": 21,
+            "questiontype": "TextDate",
+            "label": "tschq01",
+            "values": NaN,
+            "required": 1,
+            "locale": "en",
+            "question": "Date of Birth",
+            "answers": []
+        }, {
+            "id": 22,
+            "questiontype": "SingleChoice",
+            "label": "tschq02",
+            "values": ["MALE", "FEMALE"],
+            "required": 1,
+            "locale": "en",
+            "question": "Gender",
+            "answers": ["Male", "Female"]
+        }, {
+            "id": 23,
+            "questiontype": "SingleChoice",
+            "label": "tschq03",
+            "values": ["RIGHT", "LEFT", "BOTH"],
+            "required": 1,
+            "locale": "en",
+            "question": "Handedness",
+            "answers": ["Right", "Left", "Both Sides"]
+        }, {
+            "id": 24,
+            "questiontype": "YesNoSwitch",
+            "label": "tschq04-1",
+            "values": ["YES", "NO"],
+            "required": 1,
+            "locale": "en",
+            "question": "Family history of tinnitus complaints",
+            "answers": ["Yes", "No"]
+        }, {
+            "id": 25,
+            "questiontype": "MultipleChoice",
+            "label": "tschq04-2",
+            "values": ["PARENTS", "SIBLINGS", "CHILDREN"],
+            "required": 0,
+            "locale": "en",
+            "question": "If yes",
+            "answers": ["Parents", "Siblings", "Children"]
+        }, {
+            "id": 26,
+            "questiontype": "SingleChoice",
+            "label": "tschq05",
+            "values": ["3DAYS", "LESSTHAN6MONTHS", "6-12MONTHS", "1-2YEARS", "3-5YEARS", "5-10YEARS", "MORETHAN10YEARS"],
+            "required": 1,
+            "locale": "en",
+            "question": "Initial onset: For how long have you been experiencing your tinnitus?",
+            "answers": ["started in the last 3 days", "less than 6 months", "6 - 12 years", "1 - 2 years", "3 - 5 years", "5 - 10 years", "more than 10 years"]
+        }, {
+            "id": 27,
+            "questiontype": "SingleChoice",
+            "label": "tschq06",
+            "values": ["GRADUAL", "ABRUPT"],
+            "required": 1,
+            "locale": "en",
+            "question": "How did you perceive the beginning?",
+            "answers": ["Gradual", "Abrupt"]
+        }, {
+            "id": 28,
+            "questiontype": "SingleChoice",
+            "label": "tschq07-1",
+            "values": ["LOUDBLASTOFSOUND", "WHIPLASH", "CHANGEINHEARING", "STRESS", "HEADTRAUMA", "OTHER"],
+            "required": 1,
+            "locale": "en",
+            "question": "Was the initial onset of your tinnitus related to",
+            "answers": ["Loud Blast of Sound", "Whiplash", "Change in Hearing", "Stress", "Head Trauma", "Other"]
+        }, {
+            "id": 29,
+            "questiontype": "TextString",
+            "label": "tschq07-2",
+            "values": NaN,
+            "required": 0,
+            "locale": "en",
+            "question": "If other",
+            "answers": []
+        }, {
+            "id": 30,
+            "questiontype": "SingleChoice",
+            "label": "tschq08",
+            "values": ["YESWITHHEARTBEAT", "YESDIFFERENTFROMHEARTBEAT", "NO"],
+            "required": 1,
+            "locale": "en",
+            "question": "Does your tinnitus seem to pulsate?",
+            "answers": ["Yes, with heart beat", "Yes, different from heart beat", "No"]
+        }, {
+            "id": 31,
+            "questiontype": "SingleChoice",
+            "label": "tschq09",
+            "values": ["RIGHTEAR", "LEFT EAR", "BOTHEARSWORSELEFT", "BOTHEARSWORSERIGHT", "BOTHEAQUALLY", "INSIDEHEAD", "ELSEWHERE"],
+            "required": 1,
+            "locale": "en",
+            "question": "Where do you perceive your tinnitus?",
+            "answers": ["Right ear", "Left ear", "Both ears, worse in left", "Both ears, worse in right", "Both ears, equally", "Inside the head", "Elsewhere"]
+        }, {
+            "id": 32,
+            "questiontype": "SingleChoice",
+            "label": "tschq10",
+            "values": ["INTERMITTENT", "CONSTANT"],
+            "required": 1,
+            "locale": "en",
+            "question": "How does your tinnitus manifest itself over time?",
+            "answers": ["Intermittent", "Constant"]
+        }, {
+            "id": 33,
+            "questiontype": "YesNoSwitch",
+            "label": "tschq11",
+            "values": ["YES", "NO"],
+            "required": 1,
+            "locale": "en",
+            "question": "Does the loudness of the tinnitus vary from day to day?",
+            "answers": ["Yes", "No"]
+        }, {
+            "id": 34,
+            "questiontype": "Slider",
+            "label": "tschq12",
+            "values": {
+                "min": 0,
+                "max": 100,
+                "step": 1
+            },
+            "required": 1,
+            "locale": "en",
+            "question": "Describe the loudness of your tinnitus",
+            "answers": [{
+                    "value": 0,
+                    "label": "not audible",
+                    "icon": "\uf026"
+                }, {
+                    "value": 100,
+                    "label": "maximal loudness",
+                    "icon": "\uf028"
+                }
+            ]
+        }, {
+            "id": 35,
+            "questiontype": "TextString",
+            "label": "tschq13",
+            "values": NaN,
+            "required": 0,
+            "locale": "en",
+            "question": "Please describe in your own words what your tinnitus usually sounds like",
+            "answers": []
+        }, {
+            "id": 36,
+            "questiontype": "SingleChoice",
+            "label": "tschq14",
+            "values": ["TONE", "NOISE", "CRICKETS", "OTHER"],
+            "required": 1,
+            "locale": "en",
+            "question": "Does your tinnitus more sound like a tone or more like noise?",
+            "answers": ["Tone", "Noise", "Crickets", "Other"]
+        }, {
+            "id": 37,
+            "questiontype": "SingleChoice",
+            "label": "tschq15",
+            "values": ["VERYHIGH", "HIGH", "MEDIUM", "LOW"],
+            "required": 1,
+            "locale": "en",
+            "question": "Please describe the pitch of your tinnitus",
+            "answers": ["Very high frequency", "High frequency", "Medium frequency", "Low frequency"]
+        }, {
+            "id": 38,
+            "questiontype": "Slider",
+            "label": "tschq16",
+            "values": {
+                "min": 0,
+                "max": 100,
+                "step": 1
+            },
+            "required": 1,
+            "locale": "en",
+            "question": "What percent of your total awake time, over the last month, have you been aware of your tinnitus? For example, 100% would indicate that you were aware of your tinnitus all the time, 25% would indicate that you were aware of your tinnitus 1/4 of the time.",
+            "answers": [{
+                    "value": 0,
+                    "label": "never"
+                }, {
+                    "value": 100,
+                    "label": "all the time"
+                }
+            ]
+        }, {
+            "id": 39,
+            "questiontype": "Slider",
+            "label": "tschq17",
+            "values": {
+                "min": 0,
+                "max": 100,
+                "step": 1
+            },
+            "required": 1,
+            "locale": "en",
+            "question": "What percent of your total awake time, over the last month, have you been annoyed, distressed, or irritated of your tinnitus?",
+            "answers": [{
+                    "value": 0,
+                    "label": "never"
+                }, {
+                    "value": 100,
+                    "label": "all the time"
+                }
+            ]
+        }, {
+            "id": 40,
+            "questiontype": "SingleChoice",
+            "label": "tschq18",
+            "values": ["NONE", "ONE", "2TO4", "5ANDMORE"],
+            "required": 1,
+            "locale": "en",
+            "question": "How many different treatments have you undergone because of your tinnitus?",
+            "answers": ["None", "One", "2 - 4", "5 and more"]
+        }, {
+            "id": 41,
+            "questiontype": "SingleChoice",
+            "label": "tschq19",
+            "values": ["YES", "NO", "IDONTKNOW"],
+            "required": 1,
+            "locale": "en",
+            "question": "Is your tinnitus reduced by music or by certain types of environmental sounds such as the noise of a waterfall or the noise of running water when you are standing in the shower?",
+            "answers": ["Yes", "No", "I don't know"]
+        }, {
+            "id": 42,
+            "questiontype": "SingleChoice",
+            "label": "tschq20",
+            "values": ["YES", "NO", "IDONTKNOW"],
+            "required": 1,
+            "locale": "en",
+            "question": "Does the presence of loud noise make your tinnitus worse?",
+            "answers": ["Yes", "No", "I don't know"]
+        }, {
+            "id": 43,
+            "questiontype": "YesNoSwitch",
+            "label": "tschq21",
+            "values": ["YES", "NO"],
+            "required": 1,
+            "locale": "en",
+            "question": "Does any head and neck movement (e.g. moving the jaw forward or clenching the teeth), or having your arms/hands or head touched, affect your tinnitus?",
+            "answers": ["Yes", "No"]
+        }, {
+            "id": 44,
+            "questiontype": "SingleChoice",
+            "label": "tschq22",
+            "values": ["WORSENSTINNITUS", "REDUCESTINNITUS", "NOEFFECT"],
+            "required": 1,
+            "locale": "en",
+            "question": "Does taking a nap during the day affect your tinnitus?",
+            "answers": ["Worsens my tinnitus", "Reduces my tinnitus", "Has no effect"]
+        }, {
+            "id": 45,
+            "questiontype": "SingleChoice",
+            "label": "tschq23",
+            "values": ["YES", "NO", "IDONTKNOW"],
+            "required": 1,
+            "locale": "en",
+            "question": "Is there any relationship between sleep at night and your tinnitus during the day?",
+            "answers": ["Yes", "No", "I don\u2019t know"]
+        }, {
+            "id": 46,
+            "questiontype": "SingleChoice",
+            "label": "tschq24",
+            "values": ["WORSENSTINNITUS", "REDUCESTINNITUS", "NOEFFECT"],
+            "required": 1,
+            "locale": "en",
+            "question": "Does stress influence your tinnitus?",
+            "answers": ["Worsens my tinnitus", "Reduces my tinnitus", "Has no effect"]
+        }, {
+            "id": 47,
+            "questiontype": "TextArea",
+            "label": "tschq25",
+            "values": NaN,
+            "required": 0,
+            "locale": "en",
+            "question": "Does medication have an effect on your tinnitus? (Medication / Effect / Details)",
+            "answers": []
+        }, {
+            "id": 48,
+            "questiontype": "SingleChoice",
+            "label": "tschq28",
+            "values": ["NEVER", "RARELY", "SOMETIMES", "USUALLY", "ALWAYS"],
+            "required": 1,
+            "locale": "en",
+            "question": "Do you have a problem tolerating sounds because they often seem much too loud? That is, do you often find too loud or hurtful sounds which other people around you find quite comfortable?",
+            "answers": ["Never", "Rarely", "Sometimes", "Usually", "Always"]
+        }, {
+            "id": 49,
+            "questiontype": "SingleChoice",
+            "label": "tschq29",
+            "values": ["YES", "NO", "IDONTKNOW"],
+            "required": 1,
+            "locale": "en",
+            "question": "Do sounds cause you pain or physical discomfort?",
+            "answers": ["Yes", "No", "I don't know"]
+        }, {
+            "id": 50,
+            "questiontype": "YesNoSwitch",
+            "label": "tschq30",
+            "values": ["YES", "NO"],
+            "required": 1,
+            "locale": "en",
+            "question": "Do you suffer from headache?",
+            "answers": ["Yes", "No"]
+        }, {
+            "id": 51,
+            "questiontype": "YesNoSwitch",
+            "label": "tschq31",
+            "values": ["YES", "NO"],
+            "required": 1,
+            "locale": "en",
+            "question": "Do you suffer from vertigo or dizziness?",
+            "answers": ["Yes", "No"]
+        }, {
+            "id": 52,
+            "questiontype": "YesNoSwitch",
+            "label": "tschq32",
+            "values": ["YES", "NO"],
+            "required": 1,
+            "locale": "en",
+            "question": "Do you suffer from temporomandibular disorder?",
+            "answers": ["Yes", "No"]
+        }, {
+            "id": 53,
+            "questiontype": "YesNoSwitch",
+            "label": "tschq33",
+            "values": ["YES", "NO"],
+            "required": 1,
+            "locale": "en",
+            "question": "Do you suffer from neck pain?",
+            "answers": ["Yes", "No"]
+        }, {
+            "id": 54,
+            "questiontype": "YesNoSwitch",
+            "label": "tschq34",
+            "values": ["YES", "NO"],
+            "required": 1,
+            "locale": "en",
+            "question": "Do you suffer from other pain syndromes?",
+            "answers": ["Yes", "No"]
+        }, {
+            "id": 55,
+            "questiontype": "YesNoSwitch",
+            "label": "tschq35",
+            "values": ["YES", "NO"],
+            "required": 1,
+            "locale": "en",
+            "question": "Are you currently under treatment for psychiatric problems?",
+            "answers": ["Yes", "No"]
+        }, {
+            "id": 56,
+            "questiontype": "SingleChoice",
+            "label": "hq01",
+            "values": ["NEVER", "RARELY", "SOMETIMES", "OFTEN", "ALWAYS"],
+            "required": 1,
+            "locale": "en",
+            "question": "How often do you have hearing problems?",
+            "answers": ["Never", "Rarely", "Sometimes", "Often", "Always"]
+        }, {
+            "id": 57,
+            "questiontype": "SingleChoice",
+            "label": "hq02",
+            "values": ["NOTATALL", "RARELY", "SOMETIMES", "OFTEN", "ALWAYS"],
+            "required": 1,
+            "locale": "en",
+            "question": "How much do your hearing problems affect you?",
+            "answers": ["Not at all", "Little", "Moderately", "Largely", "Entirely"]
+        }, {
+            "id": 58,
+            "questiontype": "YesNoSwitch",
+            "label": "hq03",
+            "values": ["YES", "NO"],
+            "required": 1,
+            "locale": "en",
+            "question": "Did an ENT physician or acoustician diagnose you with a hearing loss?",
+            "answers": ["Yes", "No"]
+        }, {
+            "id": 59,
+            "questiontype": "SingleChoice",
+            "label": "hq04",
+            "values": ["NO", "BOTH", "LEFT", "RIGHT"],
+            "required": 1,
+            "locale": "en",
+            "question": "Do you wear hearing aids?",
+            "answers": ["No", "Yes, on both sides", "Yes, on the right", "Yes, on the left"]
+        }, {
+            "id": 60,
+            "questiontype": "TextString",
+            "label": "hq05",
+            "values": NaN,
+            "required": 0,
+            "locale": "en",
+            "question": "If yes, which hearing aids do you wear?",
+            "answers": []
+        }, {
+            "id": 61,
+            "questiontype": "SingleChoice",
+            "label": "hq06",
+            "values": ["REGULARLY", "SOMETIMES", "RARELY"],
+            "required": 0,
+            "locale": "en",
+            "question": "If yes, how often do you wear your hearing aids?",
+            "answers": ["Regularly", "Sometimes", "Rarely"]
+        }
+    ]
+}
