@@ -37,11 +37,13 @@
       <td>{{user.tschq21}}</td>
       <td>{{user.tschq24}}</td>
       <td>{{user.tschq28}}</td>
-      {% if simulate %}
+      <td><a href="{{url_for('recommend', user_id = user.user_id)}}" class="btn btn-primary">Identify Similar Pathway</a></td>
+
+      <!--{% if simulate %}
         <td><a href="{{url_for('recommend', user_id = user.user_id, simulate = simulate)}}" class="btn btn-primary">Identify Similar Pathway</a></td>
       {% else %}
           <td><a href="{{url_for('recommend', user_id = user.user_id, simulate = simulate)}}" class="btn btn-primary">Identify Similar Pathway</a></td>
-      {% endif %}
+      {% endif %} -->
     </tr>
   {% endfor %}
   </tbody>

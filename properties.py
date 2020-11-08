@@ -39,3 +39,4 @@ quest_comb = {
     "related_conditions": ["user_id"] + ["tschq12"] + ["".join("tschq"+str(i)) for i in range(28, 36)] + ["hq02", "hq04"]
                           #["".join("hq0"+str(i)) for i in range(1, 5)]
 }
+

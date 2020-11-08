@@ -21,10 +21,10 @@ user_tsg_min = TimeSeriesGroupProcessing(method="min")
 user_tsg_max = TimeSeriesGroupProcessing(method="max")
 user_tsg_mean = TimeSeriesGroupProcessing(method="mean")
 
-# Loads the default index
-@app.route("/")
-def index():
-    return render_template("index.html")
+# Loads the default index, Commented to show directly the similarity overview instead.
+#@app.route("/")
+#def index():
+#    return render_template("index.html")
 
 # Load the static dashboard
 @app.route("/app/static_vis")
@@ -41,16 +41,17 @@ def dynamic_vis_template():
 @app.route("/app/recommend")
 def recommend():
     user_id = request.args.get("user_id")
-    simulate = request.args.get("simulate")
+    #simulate = request.args.get("simulate")
+    return render_template("recommendations.html", user_id=user_id)
 
-    # When simulate is True ratherreturn random simulated users
-    if simulate == "true" or simulate == "True":
-        return render_template("recommendations.html", user_id=user_id, simulate=simulate)
-    elif simulate == "false" or simulate == "False":
-        return render_template("recommendations.html", user_id=user_id, simulate=simulate)
-    else:
-        # Redirect to page home with an error message.
-        return render_template("index.html", error="Not a correct simulate option. It should be true or false only!!")
+    # When simulate is True rather return random simulated users
+    #if simulate == "true" or simulate == "True":
+    #    return render_template("recommendations.html", user_id=user_id, simulate=simulate)
+    #elif simulate == "false" or simulate == "False":
+    #    return render_template("recommendations.html", user_id=user_id, simulate=simulate)
+    #else:
+    #    # Redirect to page home with an error message.
+    #    return render_template("index.html", error="Not a correct simulate option. It should be true or false only!!")
 
 # The Post request
 @app.route("/api/recommendations", methods=["POST", "GET"])
@@ -89,15 +90,15 @@ def get_recommendations():
     try:
         if "static-checkbox" in parameters.keys():
             static_sim = parameters["static-checkbox"]
-            simulate = parameters["simulate"]
+            #simulate = parameters["simulate"]
         if "dynamic-checkbox" in parameters.keys():
             dynamic_sim = parameters["dynamic-checkbox"]
-            simulate = parameters["simulate"]
+            #simulate = parameters["simulate"]
 
-        if simulate == "true" or simulate == "True":
-            simulate = True
-        elif simulate == "false" or simulate == "False":
-            simulate = False
+        #if simulate == "true" or simulate == "True":
+        #    simulate = True
+        #elif simulate == "false" or simulate == "False":
+        #    simulate = False
 
         query_id = parameters["patient-id"]
 
@@ -113,7 +114,7 @@ def get_recommendations():
             # Static recommendations
             print("Calling static similarity and building predictive visualization!!")
             quest_cmb = parameters["sim-sel-grp"]
-            json_data = similarity_functions.present_json(query_id, quest_cmb, simulate=simulate)
+            json_data = similarity_functions.present_json(query_id, quest_cmb, simulate=False)
             query_ts = similarity_functions.get_query_ts(query_id, user_tsg_mean)
             print(json_data)
             data["static"] = json_data
@@ -132,7 +133,7 @@ def get_recommendations():
         elif (dynamic_sim == "1") and (static_sim == "1"):
             # Both together
             quest_cmb = parameters["sim-sel-grp"]
-            json_data_static = similarity_functions.present_json(query_id, quest_cmb, simulate=simulate)
+            json_data_static = similarity_functions.present_json(query_id, quest_cmb, simulate=False)
             query_ts_static = similarity_functions.get_query_ts(query_id,  user_tsg_mean)
             print(json_data_static)
             data["static"] = json_data_static
@@ -179,7 +180,6 @@ def questionnaire():
             print(traceback.print_exc())
 
     elif request.method == "POST":
-        print("Just have come here")
         # Get the information from the front-end.
         question_kv = request.form.to_dict(flat=True)
         checkbox_list = request.form.getlist("tschq04-2")
@@ -295,11 +295,6 @@ def application():
         return render_template("application.html", identifier=identifier)
     else:
         return "Error identifier is being accessed"
-
-# Test html
-@app.route("/example")
-def example():
-    return render_template("example.html")
 
 # Perform predictions via a GET request
 @app.route("/api/predict", methods=["GET"])
@@ -485,25 +480,36 @@ def populate_months():
 
     return data
 
+@app.route("/", methods=["GET"])
+def index():
+    return redirect(url_for('similarity_dash'))
+
 # Similarity overview page to be loaded. It should be noted the created test users are loaded as JSON to the UI.
 # In reality this can come from the Database.
 @app.route("/similarity_dash", methods=["GET"])
 def similarity_dash():
-    # Here you have to load the questionnaires which are submitted and view them here.
     import utility
-    simulate = request.args.get("simulate")
+    print("Loading normal test instance!!!")
+    #Ideally load from DB
+    data = utility.load_data("test_data_ui_x_test")
+    return render_template("similarity_dashboard.html", test_data=data)
 
-    if simulate == "true" or simulate == "True":
-        data = utility.load_data("simulate/test_data_ui_x_test")
-        print("Loading simulated data instances")
-        return render_template("similarity_dashboard.html", test_data=data, simulate=simulate)
-    elif simulate == "false" or simulate == "False":
-        print("Loading normal test instance!!!")
-        data = utility.load_data("test_data_ui_x_test")
-        return render_template("similarity_dashboard.html", test_data=data, simulate=simulate)
-    else:
-        error = "The simulate option must be true or false only!!!"
-        return render_template("index.html", error=error)
+    # Simulation is disabled for the public views.
+    #import utility
+    #simulate = request.args.get("simulate")
+
+    # if simulate == "true" or simulate == "True":
+    #     data = utility.load_data("simulate/test_data_ui_x_test")
+    #     print("Loading simulated data instances")
+    #     return render_template("similarity_dashboard.html", test_data=data, simulate=simulate)
+    # elif simulate == "false" or simulate == "False":
+    #     print("Loading normal test instance!!!")
+    #     #Ideally load from DB
+    #     data = utility.load_data("test_data_ui_x_test")
+    #     return render_template("similarity_dashboard.html", test_data=data, simulate=simulate)
+    # else:
+    #     error = "The simulate option must be true or false only!!!"
+    #     return render_template("index.html", error=error)
 
 
 @app.route("/get_details_nobs", methods=["GET"])

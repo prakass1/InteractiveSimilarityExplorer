@@ -48,17 +48,6 @@ def initial_processing():
     # Read the csv of the tschq data and make the necessary things
     tschq = pd.read_pickle(properties.data_location + "/input_pckl/" + "3_q.pckl")
 
-    # Dropping users who do not have their time series
-    drop_indexs = []
-    drop_user_ids = [54, 60, 140, 170, 4, 6, 7, 9, 12, 19, 25, 53, 59, 130, 144, 145, 148, 156, 167]
-    #indexes to be obtained
-    for val in drop_user_ids:
-        drop_indexs.append(tschq[tschq["user_id"] == val].index[0])
-
-    #Drop those indexes of the users who do not have their time recordings
-    tschq.drop(drop_indexs, inplace=True)
-    tschq.reset_index(inplace=True, drop=True)
-
     # Cleaning tschq05 question. There is an abstraction for a row we add common value
 
     def filter_age(x):
@@ -429,7 +418,7 @@ eval_method = "mean"
 
 tsg_data = TimeSeriesGroupProcessing(method=eval_method)
 # For all combinations evaluation it must be set to True
-quest_cmb_all = True
+quest_cmb_all = False
 # Same random state needs to be maintained to get consistent test data over all combinations and repeatable results
 random_state = 1220
 # It is the setting to get the ahead prediction for tinnitus distress, 3 here means for 3 days

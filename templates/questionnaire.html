@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="container py-8">
-<h1>Tinnitus case history Questionnaire</h1>
+<h1>Questions</h1>
 <form action="{{ url_for('questionnaire') }}" class="card p-3 bg-white" method="POST">
   {% for q in questionnaire.questions %}
     {% if q.questiontype == "TextDate" or q.questiontype == "TextString" %}

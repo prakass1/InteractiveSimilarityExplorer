@@ -11,7 +11,12 @@ import ast
 # Feature engineering family history
 
 def create_cols_family_hist(x):
+    print(x["tschq04-1"])
+    print(type(x["tschq04-1"]))
+
     if x["tschq04-1"] == "YES":
+        print(x["tschq04-2"])
+        print(type(x["tschq04-2"]))
         if isinstance(x["tschq04-2"], str):
             res = ast.literal_eval(x["tschq04-2"])
         else:
@@ -58,8 +63,10 @@ def check_access(location):
 
 def initial_processing(item_list, quest_cmbs=None, append_synthethic=False):
     # Read the csv of the tschq data and make the necessary things
+    # tschq = pd.read_csv("data/input_csv/3_q.csv", index_col=0, na_filter=False)
     tschq = pd.read_pickle(properties.registration_file_location)
     hq = pd.read_pickle(properties.hearing_file_location)
+
 
     # If append synthethic is true then add the synthethic data.
     if append_synthethic:
@@ -78,18 +85,8 @@ def initial_processing(item_list, quest_cmbs=None, append_synthethic=False):
             hq = hq.append(simulation_hearing_file)
         else:
             print("Simulated hearing file is not created !!!")
+            print("Simulated hearing file is not created !!!")
 
-
-    # Dropping users who do not have their time series thresholded to 20
-    drop_indexs = []
-
-    drop_user_ids = [54, 60, 140, 170, 4, 6, 7, 9, 12, 19, 25, 53, 59, 130, 144, 145, 148, 156, 167]
-    #indexes to be obtained
-    for val in drop_user_ids:
-        drop_indexs.append(tschq[tschq["user_id"] == val].index[0])
-
-    #Drop those indexes of the users who do not have their time recordings
-    tschq.drop(drop_indexs, inplace=True)
     tschq.reset_index(inplace=True, drop=True)
 
     if item_list in ["bg_tinnitus_history"]:
@@ -115,7 +112,7 @@ def initial_processing(item_list, quest_cmbs=None, append_synthethic=False):
         hq.isna().sum(axis=0)
         # By looking at the output we are sure that h5 and h6 do not contribute much and can be dropped
         hq.drop(["hq05", "hq06"], axis=1, inplace=True)
-        hq_df = hq.set_index("user_id")
+        hq_df = hq.set_index("user_id", inplace=False)
         df = tschq.join(hq_df.iloc[:, 2:], on="user_id")
 
         # Repeated code but it should be okay
