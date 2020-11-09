@@ -1,0 +1,35 @@
+Evaluating over the forecast reference points -- [156.0, 157.0, 158.0]for the method evaluation -- mean
+---------------------------------------------------------------
+RMSE -- 0.2662004257447134
+---------------------------------------------------------------
+Computing RMSE for weighted_distanceFalse linear_regression based predictions for the user -- 1344 
+RMSE -- 0.7671615596162461
+---------------------------------------------------------------
+Evaluating over the forecast reference points -- [12.0, 13.0, 14.0]for the method evaluation -- mean
+---------------------------------------------------------------
+RMSE -- 0.2658571044753177
+---------------------------------------------------------------
+Computing RMSE for weighted_distanceFalse linear_regression based predictions for the user -- 1350 
+RMSE -- 0.20092447468390995
+---------------------------------------------------------------
+Evaluating over the forecast reference points -- [62.0, 63.0, 64.0]for the method evaluation -- mean
+---------------------------------------------------------------
+RMSE -- 0.11231503312854726
+---------------------------------------------------------------
+Computing RMSE for weighted_distanceFalse linear_regression based predictions for the user -- 1354 
+RMSE -- 0.29904434296221255
+---------------------------------------------------------------
+Evaluating over the forecast reference points -- [155.0, 156.0, 157.0]for the method evaluation -- mean
+---------------------------------------------------------------
+RMSE -- 0.3789335913674936
+---------------------------------------------------------------
+Computing RMSE for weighted_distanceFalse linear_regression based predictions for the user -- 1359 
+RMSE -- 0.7313062398113354
+---------------------------------------------------------------
+Evaluating over the forecast reference points -- [78.0, 79.0, 80.0]for the method evaluation -- mean
+---------------------------------------------------------------
+RMSE -- 0.24598373929997894
+---------------------------------------------------------------
+Computing RMSE for weighted_distanceFalse linear_regression based predictions for the user -- 1353 
+RMSE -- 0.38545700307614295
+---------------------------------------------------------------
