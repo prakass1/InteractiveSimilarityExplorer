@@ -112,6 +112,8 @@ def get_recommendations():
 
         elif static_sim == "1" and dynamic_sim == "":
             # Static recommendations
+            query_id = "1353"
+            quest_cmb = "overall"
             print("Calling static similarity and building predictive visualization!!")
             quest_cmb = parameters["sim-sel-grp"]
             json_data = similarity_functions.present_json(query_id, quest_cmb, simulate=False)
@@ -145,7 +147,9 @@ def get_recommendations():
             print(json_data_dynamic)
             data["dynamic"] = json_data_dynamic
 
+
         return jsonify(data), "Test Message"
+
     except Exception:
         print("Something went wrong. Check the application", traceback.print_exc())
         data["message"] = "Something went wrong. Check the application"
@@ -217,12 +221,12 @@ def switch_plot():
     query_id = request.args.get("query_id")
     plot_type = request.args.get("plot_type")
     var_type = request.args.get("var_type")
-    simulate = request.args.get("simulate")
+    #simulate = request.args.get("simulate")
 
-    if simulate == "true" or simulate == "True":
-        simulate = True
-    elif simulate == "false" or simulate == "False":
-        simulate = False
+    #if simulate == "true" or simulate == "True":
+    #    simulate = True
+    #elif simulate == "false" or simulate == "False":
+    #    simulate = False
 
     # Plot types acts as the action parameter to load the respective plot change
     # Options can be boxplot, heatmap, lineplot, etc...
@@ -233,7 +237,7 @@ def switch_plot():
         # Very important to be in this order else will change the plot. (Especially coloring factors)
         output = {}
         query_list = [query_id, nearest_pid]
-        graph_data = similarity_functions.create_boxplot_compare(query_list, var_type, simulate=simulate)
+        graph_data = similarity_functions.create_boxplot_compare(query_list, var_type, simulate=False)
         output["graph_data"] = graph_data
         return jsonify(output)
 
@@ -246,20 +250,20 @@ def get_information():
     combination = request.args.get("combination")
     plot_type = request.args.get("plot_type")
     var_type = request.args.get("var_type")
-    simulate = request.args.get("simulate")
+    #simulate = request.args.get("simulate")
     print(var_type)
     # print(nearest_pid + " " + query_id)
     # Construct heatmap view information as json and return back for d3 to perform necessary visualization
     try:
 
-        if simulate == "true" or simulate == "True":
-            simulate = True
-        elif simulate == "false" or simulate == "False":
-            simulate = False
+        # if simulate == "true" or simulate == "True":
+        #     simulate = True
+        # elif simulate == "false" or simulate == "False":
+        #     simulate = False
 
         if plot_type == "heatmap":
             data_output = similarity_functions.get_patient_information(combination, query_id, nearest_pid,
-                                                                       simulate=simulate)
+                                                                       simulate=False)
         elif plot_type == "timeseries":
             output = {}
             query_list = [query_id, nearest_pid]
@@ -542,7 +546,7 @@ def change_k_plot():
     dynamic_sim = request.args['dyn_sim']
     quest_cmb = request.args['combination']
     k_val = int(request.args['k_val'])
-    simulate = request.args.get("simulate")
+    #simulate = request.args.get("simulate")
 
     print("Static_sim - {}",static_sim)
     print("Dyn_sim - {}", dynamic_sim)
@@ -557,10 +561,10 @@ def change_k_plot():
         static_sim = False
         dynamic_sim = True
 
-    if simulate == "true" or simulate == "True":
-        simulate = True
-    elif simulate == "false" or simulate == "False":
-        simulate = False
+    # if simulate == "true" or simulate == "True":
+    #     simulate = True
+    # elif simulate == "false" or simulate == "False":
+    #     simulate = False
 
 
     try:
@@ -568,7 +572,7 @@ def change_k_plot():
         if static_sim and (not dynamic_sim):
             # Static recommendations
             print("Calling static similarity and building predictive visualization!!")
-            json_data = similarity_functions.present_json(user_id, quest_cmb, k=k_val, simulate=simulate)
+            json_data = similarity_functions.present_json(user_id, quest_cmb, k=k_val, simulate=False)
             #query_ts = similarity_functions.get_query_ts(user_id, user_tsg_mean)
             #print(json_data)
             data["static"] = json_data
@@ -587,7 +591,7 @@ def change_k_plot():
         elif dynamic_sim and static_sim:
             # Both together
             #quest_cmb = parameters["sim-sel-grp"]
-            json_data_static = similarity_functions.present_json(user_id, quest_cmb, k=k_val, simulate = simulate)
+            json_data_static = similarity_functions.present_json(user_id, quest_cmb, k=k_val, simulate = False)
             #query_ts_static = similarity_functions.get_query_ts(user_id,  user_tsg_mean)
             print(json_data_static)
             data["static"] = json_data_static
@@ -614,5 +618,4 @@ def change_k_plot():
         return jsonify(data)
 
 # Host and port to run the app
-
-app.run(host="0.0.0.0", port=5000, debug=False)
+app.run(host="0.0.0.0", port=5001, debug=False)

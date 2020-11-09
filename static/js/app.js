@@ -77,7 +77,6 @@ $.ajax({
   cache:false,
   //processData:false,
   //contentType:"application/json",
-  //contentType: "application/json",
   success: function(data, test)
         {
             $("#recom-sub-id").attr("disabled", false);
@@ -211,7 +210,7 @@ console.log("Dyn_check " + dyn_check);
 var combination = $("#sim-sel-grp").val();
 
 var user_id = document.getElementById('patient-id').value
-var simulate_val = document.getElementById('simulate').value
+//var simulate_val = document.getElementById('simulate').value
 
 var k_val = $("#kval").val();
 
@@ -219,8 +218,8 @@ post_data = {"user_id":user_id,
          "static_sim":static_check,
          "dyn_sim":dyn_check,
          "combination":combination,
-         "k_val":k_val,
-         "simulate": simulate_val}
+         "k_val":k_val}
+         //"simulate": simulate_val}
 
 console.log(JSON.stringify(post_data));
 
