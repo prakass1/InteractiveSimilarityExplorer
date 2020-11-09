@@ -160,21 +160,21 @@ def get_common_cols(col1, col2):
 
 def initial_processing():
     # Read the csv of the tschq data and make the necessary things
-    tschq = pd.read_pickle(properties.data_location + "/input_pckl/" + "3_q.pckl")
+    #tschq = pd.read_pickle(properties.data_location + "/input_pckl/" + "3_q.pckl")
 
     # Dropping users who do not have their time series
-    drop_indexs = []
+    #drop_indexs = []
 
     # Users with very few observations and user do not containing the time series are filtered.
-    drop_user_ids = [54, 60, 140, 170, 4, 6, 7, 9, 12, 19, 25, 53, 59, 130, 144, 145, 148, 156, 167]
+    #drop_user_ids = [54, 60, 140, 170, 4, 6, 7, 9, 12, 19, 25, 53, 59, 130, 144, 145, 148, 156, 167]
 
     # indexes to be obtained
-    for val in drop_user_ids:
-        drop_indexs.append(tschq[tschq["user_id"] == val].index[0])
+    #for val in drop_user_ids:
+    #    drop_indexs.append(tschq[tschq["user_id"] == val].index[0])
 
     # Drop those indexes of the users who do not have their time recordings
-    tschq.drop(drop_indexs, inplace=True)
-    tschq.reset_index(inplace=True, drop=True)
+    #tschq.drop(drop_indexs, inplace=True)
+    #tschq.reset_index(inplace=True, drop=True)
 
     # Cleaning tschq05 question. There is an abstraction for a row we add common value
 
@@ -226,7 +226,7 @@ def initial_processing():
     return cat_idx, num_idx, df
 
 
-def main(top_n=5, k_range=[3, 5, 7, 11, 15], alpha=1.0):
+def main(top_n=5, k_range=[3, 5, 7, 11, 15, 17, 19], alpha=1.0):
     k_outliers_dict = {}
     outliers_data = {}
     combinations_dict = {}
@@ -330,7 +330,7 @@ def main(top_n=5, k_range=[3, 5, 7, 11, 15], alpha=1.0):
     return user_desc_rbod_outliers[:top_n], user_desc_lof_outliers[:top_n], user_z_scores
 
 
-def main_dyn(top_n=5, k_range=[3, 5, 7, 11, 15, 17, 19, 21, 23, 25], alpha=1.0):
+def main_dyn(top_n=5, k_range=[3, 5, 7, 11, 15, 17, 19], alpha=1.0):
     k_outliers_dict = {}
     outliers_data = {}
     combinations_dict = {}
@@ -408,10 +408,10 @@ def main_dyn(top_n=5, k_range=[3, 5, 7, 11, 15, 17, 19, 21, 23, 25], alpha=1.0):
 
 
 if __name__ == '__main__':
-    save = False  # Set to true normally when one want to save the outlier scores to be utilized to anything.
-    k_range = [_ for _ in range(3, 40, 2)]
+    save = True  # Set to true normally when one want to save the outlier scores to be utilized to anything.
+    k_range = [_ for _ in range(3, 19, 2)]
     # Need to go more higher neighborhood to find extreme outliers for dynamic data
-    dyn_k_range = [_ for _ in range(3, 42, 2)]
+    dyn_k_range = [_ for _ in range(3, 19, 2)]
     # Alpha is set for the outlier value threshold as per the original paper for RBDA, can be changed accordingly.
     n = 10
     a = 2.5
