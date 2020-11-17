@@ -267,17 +267,17 @@ def get_information():
         elif plot_type == "timeseries":
             output = {}
             query_list = [query_id, nearest_pid]
-            graph_data = similarity_functions.create_boxplot_compare(query_list, var_type, simulate=simulate)
+            graph_data = similarity_functions.create_boxplot_compare(query_list, var_type, simulate=False)
             output["graph_data"] = graph_data
             return jsonify(output)
         elif plot_type == "heatmap_ts":
             output = {}
             data_hm_output = similarity_functions.get_patient_information(combination, query_id, nearest_pid,
-                                                                          simulate=simulate)
+                                                                          simulate=False)
             output["hm"] = data_hm_output
             # Very important to be in this order else will change the plot. (Especially coloring factors)
             query_list = [query_id, nearest_pid]
-            graph_data = similarity_functions.create_boxplot_compare(query_list, var_type, simulate=simulate)
+            graph_data = similarity_functions.create_boxplot_compare(query_list, var_type, simulate=False)
             output["graph_data"] = graph_data
             return jsonify(output)
 
@@ -484,13 +484,13 @@ def populate_months():
 
     return data
 
-@app.route("/", methods=["GET"])
-def index():
-    return redirect(url_for('similarity_dash'))
+#@app.route("/", methods=["GET"])
+#def index():
+#    return redirect(url_for('similarity_dash'))
 
 # Similarity overview page to be loaded. It should be noted the created test users are loaded as JSON to the UI.
 # In reality this can come from the Database.
-@app.route("/similarity_dash", methods=["GET"])
+@app.route("/", methods=["GET"])
 def similarity_dash():
     import utility
     print("Loading normal test instance!!!")
@@ -618,4 +618,4 @@ def change_k_plot():
         return jsonify(data)
 
 # Host and port to run the app
-app.run(host="0.0.0.0", port=5001, debug=False)
+app.run(host="0.0.0.0", port=5000, debug=False)

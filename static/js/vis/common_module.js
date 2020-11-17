@@ -33,8 +33,8 @@ function plot_comp_boxplots(graph_data){
 }
 */
 
-// Switch plot ajax workflow
-function switch_plot_information(target, query, plot_type, var_type, flag, simulate_val){
+// Switch plot ajax workflow (simulate parameter is taken out)
+function switch_plot_information(target, query, plot_type, var_type, flag){
 console.log("Entering to call switch_plot_information()");
 $.ajax({
         url: "/api/plot/switch",
@@ -43,8 +43,8 @@ $.ajax({
             "nearest_pid": target,
             "query_id": query,
             "plot_type": plot_type,
-            "var_type": var_type,
-            "simulate": simulate_val
+            "var_type": var_type
+            //"simulate": simulate_val
         },
         cache: false,
         success: function (data, test) {

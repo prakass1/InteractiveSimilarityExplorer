@@ -51,8 +51,8 @@ d3.select("#static_plot_vars").on("change", function(){
     var query_id = query;
     var var_type = document.getElementById('static_plot_vars').value;
     var plot_type = "boxplot";
-    var simulate_val = document.getElementById('simulate').value
-    switch_plot_information(target_nn, query_id, plot_type, var_type, false, simulate_val);
+    //var simulate_val = document.getElementById('simulate').value
+    switch_plot_information(target_nn, query_id, plot_type, var_type, false);
 });
 
 d3.select("#dynamic_plot_vars").on("change", function(){
@@ -65,8 +65,8 @@ d3.select("#dynamic_plot_vars").on("change", function(){
     var query_id = query_ts;
     var var_type = document.getElementById('dynamic_plot_vars').value;
     var plot_type = "boxplot";
-    var simulate_val = document.getElementById('simulate').value
-    switch_plot_information(target_nn, query_id, plot_type, var_type, true, simulate_val);
+   // var simulate_val = document.getElementById('simulate').value
+    switch_plot_information(target_nn, query_id, plot_type, var_type, true);
 });
 
 
@@ -113,8 +113,8 @@ function get_ts_information(target_id) {
             "nearest_pid": target_id,
             "query_id": query_ts,
             "plot_type": "timeseries",
-            "var_type": document.getElementById('dynamic_plot_vars').value,
-            "simulate": "false"
+            "var_type": document.getElementById('dynamic_plot_vars').value
+            //"simulate": "false"
         },
         cache: false,
         success: function (data, test) {
@@ -147,8 +147,8 @@ function getInformation(combination, target_id) {
             "query_id": query,
             "combination": combination,
             "plot_type": "heatmap_ts",
-            "var_type": document.getElementById('static_plot_vars').value,
-            "simulate": document.getElementById("simulate").value
+            "var_type": document.getElementById('static_plot_vars').value
+            //"simulate": document.getElementById("simulate").value
         },
         cache: false,
         success: function (data, test) {
