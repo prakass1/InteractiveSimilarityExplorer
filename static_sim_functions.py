@@ -11,17 +11,11 @@ import ast
 # Feature engineering family history
 
 def create_cols_family_hist(x):
-    print(x["tschq04-1"])
-    print(type(x["tschq04-1"]))
-
     if x["tschq04-1"] == "YES":
-        print(x["tschq04-2"])
-        print(type(x["tschq04-2"]))
         if isinstance(x["tschq04-2"], str):
             res = ast.literal_eval(x["tschq04-2"])
         else:
             res = x["tschq04-2"]
-
         lst_sorted = sorted(res)
         list_to_str = "_".join([val for val in lst_sorted])
         return list_to_str
