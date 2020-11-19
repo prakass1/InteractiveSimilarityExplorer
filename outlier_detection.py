@@ -36,7 +36,9 @@ class RBOD:
     contributed in the thesis work.
     """
 
-    def __init__(self, sim_df, kneighbors=5, metric=None, radius=1.0, z_val=2.5, dyn=False):
+    def __init__(
+        self, sim_df, kneighbors=5, metric=None, radius=1.0, z_val=2.5, dyn=False
+    ):
 
         """
         :param sim_df: Precompute a similarity matrix by a defined metric and pass to the class.
@@ -64,8 +66,10 @@ class RBOD:
 
         outlier_list = []
         if None is not self.metric:
-            knn = NearestNeighbors(n_neighbors=self.kneighbors, radius=self.radius, metric=self.metric)
-            #knn = NearestNeighbors(n_neighbors=20, radius=1.0, metric="precomputed")
+            knn = NearestNeighbors(
+                n_neighbors=self.kneighbors, radius=self.radius, metric=self.metric
+            )
+            # knn = NearestNeighbors(n_neighbors=20, radius=1.0, metric="precomputed")
         else:
             # This is the default Euclidean distance. Mostly useful while doing over public dataset
             knn = NearestNeighbors(n_neighbors=self.kneighbors)
@@ -73,14 +77,16 @@ class RBOD:
         # Fit to ball_tree entire data. We will obtain the neighbors indexed from this matrix and use it find and label outliers if any.
         if self.dyn:
             knn.fit(self.sim_df.iloc[:, 1:])
-           #knn.fit(C_df.iloc[:, 1:])
+        # knn.fit(C_df.iloc[:, 1:])
         else:
             knn.fit(X[:, 1:])
 
         user_ids_np = self.sim_df["user_id"].to_numpy()
-        #user_ids_np = C_df["user_id"].to_numpy()
+        # user_ids_np = C_df["user_id"].to_numpy()
         for user in X:
-            dist, idx = knn.kneighbors(user[1:].reshape(1, -1), n_neighbors=self.kneighbors)
+            dist, idx = knn.kneighbors(
+                user[1:].reshape(1, -1), n_neighbors=self.kneighbors
+            )
 
             # Not concerned with the distance but their ranks across the neighbors
             dist = dist.flatten()
@@ -88,14 +94,18 @@ class RBOD:
             ranks_list = []
             for u_id in idx[1:]:
                 user_rank_dict = {}
-                u_id_dists = self.sim_df[self.sim_df["user_id"] == int(user_ids_np[u_id])].to_numpy()
-                #u_id_dists = C_df[C_df["user_id"] == int(user_ids_np[26])].to_numpy()
+                u_id_dists = self.sim_df[
+                    self.sim_df["user_id"] == int(user_ids_np[u_id])
+                ].to_numpy()
+                # u_id_dists = C_df[C_df["user_id"] == int(user_ids_np[26])].to_numpy()
                 for i, dists in enumerate(u_id_dists.flatten()[1:]):
                     if not float(dists) == 0.0:
                         user_rank_dict[user_ids_np[i]] = dists
 
                 # Sort in ascending order and find the rank of the respective user_id
-                sorted_usr_rank_tuple = sorted(user_rank_dict.items(), key=lambda x: x[1])
+                sorted_usr_rank_tuple = sorted(
+                    user_rank_dict.items(), key=lambda x: x[1]
+                )
                 rank = 1
                 for val in sorted_usr_rank_tuple:
                     # print(val)
@@ -104,9 +114,9 @@ class RBOD:
                         break
                     rank += 1
                 ranks_list.append(rank)
-                #print(ranks_list)
+                # print(ranks_list)
             outlier_list.append((int(user[0]), np.sum(ranks_list) / self.kneighbors))
-            #outlier_list.append((int(user[0]), np.sum(ranks_list) / 20))
+            # outlier_list.append((int(user[0]), np.sum(ranks_list) / 20))
 
         np_outlier_list = np.asarray([val[1] for val in outlier_list])
         mean_rank_ratio = np_outlier_list.mean()
@@ -115,7 +125,7 @@ class RBOD:
         for ele in outlier_list:
             z_score = (ele[1] - mean_rank_ratio) / std_rank_ratio
             if z_score >= self.z_val:
-            #if z_score >= 2.5:
+                # if z_score >= 2.5:
                 z_list.append((ele[0], z_score, True))
             else:
                 z_list.append((ele[0], z_score, False))
@@ -160,21 +170,7 @@ def get_common_cols(col1, col2):
 
 def initial_processing():
     # Read the csv of the tschq data and make the necessary things
-    #tschq = pd.read_pickle(properties.data_location + "/input_pckl/" + "3_q.pckl")
-
-    # Dropping users who do not have their time series
-    #drop_indexs = []
-
-    # Users with very few observations and user do not containing the time series are filtered.
-    #drop_user_ids = [54, 60, 140, 170, 4, 6, 7, 9, 12, 19, 25, 53, 59, 130, 144, 145, 148, 156, 167]
-
-    # indexes to be obtained
-    #for val in drop_user_ids:
-    #    drop_indexs.append(tschq[tschq["user_id"] == val].index[0])
-
-    # Drop those indexes of the users who do not have their time recordings
-    #tschq.drop(drop_indexs, inplace=True)
-    #tschq.reset_index(inplace=True, drop=True)
+    tschq = pd.read_pickle(properties.data_location + "/input_pckl/" + "3_q.pckl")
 
     # Cleaning tschq05 question. There is an abstraction for a row we add common value
 
@@ -200,8 +196,7 @@ def initial_processing():
 
     # Repeated code but it should be okay
     # Looking at the output, we can drop tschq25, tschq07-02, tschq04-2
-    drop_cols = ["tschq01", "tschq25", "tschq07-2",
-                 "tschq13", "tschq04-1", "tschq04-2"]
+    drop_cols = ["tschq01", "tschq25", "tschq07-2", "tschq13", "tschq04-1", "tschq04-2"]
 
     # Getting percentage between 0 to 1 rather than score values
     df["tschq12"] = df["tschq12"].apply(lambda x: x / 100)
@@ -227,29 +222,37 @@ def initial_processing():
 
 
 def main(top_n=5, k_range=[3, 5, 7, 11, 15, 17, 19], alpha=1.0):
-    k_outliers_dict = {}
-    outliers_data = {}
-    combinations_dict = {}
     user_outliers = {}
     user_lof_outliers = {}
     k_cmb_z_scores = list()
     k_z_scores = list()
     for quest_cmb in list(
-            properties.quest_comb.keys()):  # Only take the subset of feature and not consider entire -- + ["overall"]:
+        properties.quest_comb.keys()
+    ):  # Only take the subset of feature and not consider entire -- + ["overall"]:
 
         for k in k_range:
             # Can be changed to random set of features for making it feature bagging + voting strategy with ensembles.
             if quest_cmb == "overall":
                 cat_idx, num_idx, df = initial_processing()
             else:
-                cat_idx, num_idx, df = smf.initial_processing(quest_cmb, properties.quest_comb[quest_cmb],
-                                                              append_synthethic=False)
+                cat_idx, num_idx, df = smf.initial_processing(
+                    quest_cmb, properties.quest_comb[quest_cmb], append_synthethic=False
+                )
 
             # unnecessary column not required for the computations
-            drop_cols = ["tschq01", "tschq04-1", "tschq04-2", "tschq07-2", "tschq13", "tschq25"]
+            drop_cols = [
+                "tschq01",
+                "tschq04-1",
+                "tschq04-2",
+                "tschq07-2",
+                "tschq13",
+                "tschq25",
+            ]
 
             if quest_cmb not in ["all", "overall"]:
-                filtered_cols = [x for x in properties.quest_comb[quest_cmb] if x not in drop_cols]
+                filtered_cols = [
+                    x for x in properties.quest_comb[quest_cmb] if x not in drop_cols
+                ]
                 if quest_cmb == "bg_tinnitus_history":
                     filtered_query_data = df[filtered_cols + ["tschq04"]]
                 else:
@@ -258,12 +261,18 @@ def main(top_n=5, k_range=[3, 5, 7, 11, 15, 17, 19], alpha=1.0):
                 filtered_query_data = df
 
             # Label and ordinal encoding scheme
-            encoded_combined_df = smf.preprocess(filtered_query_data, quest_cmb, age_bin=False,
-                                                 process_model_name="",
-                                                 prediction=False, save_model=False)
+            encoded_combined_df = smf.preprocess(
+                filtered_query_data,
+                quest_cmb,
+                age_bin=False,
+                process_model_name="",
+                prediction=False,
+                save_model=False,
+            )
 
             cmb_data_np = encoded_combined_df.to_numpy()
             from HEOM import HEOM
+
             heom = HEOM(cmb_data_np[:, 1:], cat_idx, num_idx)
 
             # Create the similarity matrix, for references the user_id is tagged along
@@ -274,21 +283,30 @@ def main(top_n=5, k_range=[3, 5, 7, 11, 15, 17, 19], alpha=1.0):
                     C[i][j] = dist
 
             C_df = pd.DataFrame(C)
-            #C_df["user_id"] = encoded_combined_df["user_id"]
+            # C_df["user_id"] = encoded_combined_df["user_id"]
             C_df.insert(0, "user_id", encoded_combined_df["user_id"].to_numpy())
             # Threshold radius to pass. If not required can be kept to default 1.0
             sim_matrix = pdist(encoded_combined_df.iloc[:, 1:], heom.heom_distance)
             threshold_distance = sim_matrix.mean()
 
             # Build the Rank Based Outlier Detection. Z_val is kept as per original paper. Can be modified according to the dataset.
-            rbod = RBOD(C_df, kneighbors=k, metric=heom.heom_distance, radius=threshold_distance, z_val=2.5)
+            rbod = RBOD(
+                C_df,
+                kneighbors=k,
+                metric=heom.heom_distance,
+                radius=threshold_distance,
+                z_val=2.5,
+            )
             lof = LOF(n_neighbors=k, metric=heom.heom_distance)
             lof.fit(cmb_data_np[:, 1:])
             labels = lof.labels_
 
             outlier_list = rbod.detect(cmb_data_np)
             user_lof_list = np.where(labels == 1)
-            users_lof_outlier = [encoded_combined_df["user_id"].to_numpy()[idx] for idx in user_lof_list[0]]
+            users_lof_outlier = [
+                encoded_combined_df["user_id"].to_numpy()[idx]
+                for idx in user_lof_list[0]
+            ]
 
             for val in outlier_list:
                 if val[2]:
@@ -307,36 +325,44 @@ def main(top_n=5, k_range=[3, 5, 7, 11, 15, 17, 19], alpha=1.0):
         k_cmb_z_scores.append(np.mean(k_z_scores, axis=0))
 
     # Sorted in descending order of the outlier occurance and return the top-n outliers
-    user_desc_rbod_outliers = sorted(user_outliers.items(), key=lambda x: x[1], reverse=True)
-    user_desc_lof_outliers = sorted(user_lof_outliers.items(), key=lambda x: x[1], reverse=True)
+    user_desc_rbod_outliers = sorted(
+        user_outliers.items(), key=lambda x: x[1], reverse=True
+    )
+    user_desc_lof_outliers = sorted(
+        user_lof_outliers.items(), key=lambda x: x[1], reverse=True
+    )
 
     # Median as not to impact the zscore with each k and alpha parameter for number of std to go. Ideal for 1std.
     from scipy import stats
+
     mean_z_scores = np.mean(k_cmb_z_scores, axis=0)
     median_z_scores = np.median(k_cmb_z_scores, axis=0)
-    user_z_scores = [(idx, values) for idx, values in zip(encoded_combined_df["user_id"].to_numpy(), mean_z_scores)]
+    user_z_scores = [
+        (idx, values)
+        for idx, values in zip(encoded_combined_df["user_id"].to_numpy(), mean_z_scores)
+    ]
     # Extreme Outliers = Q3 + alpha * IQR, where alpha = 3.0
     # Mild Outliers = Q3 + alpha * IQR, where alpha=1.0
     # Q3 - Q1 -> Mid point which is 75% - 25% of the data point
 
     iqr = stats.iqr(median_z_scores, interpolation="midpoint")
-    #k_z_scores = median_z_scores + alpha * iqr
+    # k_z_scores = median_z_scores + alpha * iqr
 
     grad_outliers = np.where(median_z_scores > alpha * iqr)
 
-    #There is a provision to extend to printout based on the iqr values too which returns the gradual outliers.
+    # There is a provision to extend to printout based on the iqr values too which returns the gradual outliers.
 
     # Return the (id,occurance) tuple in highest outlier occurance by voting process.
-    return user_desc_rbod_outliers[:top_n], user_desc_lof_outliers[:top_n], user_z_scores
+    return (
+        user_desc_rbod_outliers[:top_n],
+        user_desc_lof_outliers[:top_n],
+        user_z_scores,
+    )
 
 
 def main_dyn(top_n=5, k_range=[3, 5, 7, 11, 15, 17, 19], alpha=1.0):
-    k_outliers_dict = {}
-    outliers_data = {}
-    combinations_dict = {}
     user_outliers = {}
     user_lof_outliers = {}
-    k_cmb_z_scores = list()
     k_z_scores = list()
     X = ml_ts.process_data(grouping="day")
 
@@ -349,13 +375,12 @@ def main_dyn(top_n=5, k_range=[3, 5, 7, 11, 15, 17, 19], alpha=1.0):
     C_df = pd.DataFrame(C)
     user_ids = [val[0] for val in X]
 
-
     # Insert at the begining the Id
     C_df.insert(0, "user_id", user_ids)
 
-   # C_df.to_csv("sim_ema.csv")
+    # C_df.to_csv("sim_ema.csv")
 
-    #C_df["user_id"] = user_ids
+    # C_df["user_id"] = user_ids
     for k in k_range:
         # Build the Rank Based Outlier Detection. Z_val is kept to 1.5 and seems to obtain some of outliers. Can be modified according to the dataset.
         rbod = RBOD(C_df, kneighbors=k, metric="precomputed", z_val=1.5, dyn=True)
@@ -384,11 +409,16 @@ def main_dyn(top_n=5, k_range=[3, 5, 7, 11, 15, 17, 19], alpha=1.0):
         k_z_scores.append(np.asarray([item[1] for item in outlier_list]))
 
     # Sorted in descending order of the outlier occurance and return the top-n outliers
-    user_desc_rbod_outliers = sorted(user_outliers.items(), key=lambda x: x[1], reverse=True)
-    user_desc_lof_outliers = sorted(user_lof_outliers.items(), key=lambda x: x[1], reverse=True)
+    user_desc_rbod_outliers = sorted(
+        user_outliers.items(), key=lambda x: x[1], reverse=True
+    )
+    user_desc_lof_outliers = sorted(
+        user_lof_outliers.items(), key=lambda x: x[1], reverse=True
+    )
 
     # Median as not to impact the zscore with each k and alpha parameter for number of std to go. Ideal for 1std.
     from scipy import stats
+
     mean_z_scores = np.mean(k_z_scores, axis=0)
     median_z_scores = np.median(k_z_scores, axis=0)
     user_z_scores = [(idx, values) for idx, values in zip(user_ids, mean_z_scores)]
@@ -397,17 +427,21 @@ def main_dyn(top_n=5, k_range=[3, 5, 7, 11, 15, 17, 19], alpha=1.0):
     # Q3 - Q1 -> Mid point which is 75% - 25% of the data point
 
     iqr = stats.iqr(median_z_scores, interpolation="midpoint")
-    #k_z_scores = median_z_scores + alpha * iqr
+    # k_z_scores = median_z_scores + alpha * iqr
 
-    grad_outliers = np.where(median_z_scores > alpha * iqr)
+    # grad_outliers = np.where(median_z_scores > alpha * iqr)
 
-    #There is a provision to extend to printout based on the iqr values too which returns the gradual outliers.
+    # There is a provision to extend to printout based on the iqr values too which returns the gradual outliers.
 
     # Return the (id,occurance) tuple in highest outlier occurance by voting process.
-    return user_desc_rbod_outliers[:top_n], user_desc_lof_outliers[:top_n], user_z_scores
+    return (
+        user_desc_rbod_outliers[:top_n],
+        user_desc_lof_outliers[:top_n],
+        user_z_scores,
+    )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     save = True  # Set to true normally when one want to save the outlier scores to be utilized to anything.
     k_range = [_ for _ in range(3, 19, 2)]
     # Need to go more higher neighborhood to find extreme outliers for dynamic data
@@ -415,31 +449,62 @@ if __name__ == '__main__':
     # Alpha is set for the outlier value threshold as per the original paper for RBDA, can be changed accordingly.
     n = 10
     a = 2.5
-    print("Starting Outlier Detection --- with top_n -- {}, k_range -- {} and alpha -- {}".format(n, k_range, a))
+    print(
+        "Starting Outlier Detection --- with top_n -- {}, k_range -- {} and alpha -- {}".format(
+            n, k_range, a
+        )
+    )
     rbod_outliers, lof_outliers, user_zscores = main(top_n=n, k_range=k_range, alpha=a)
 
-    dyn_rbod_outliers, dyn_lof_outliers, dyn_user_zscores = main_dyn(top_n=n, k_range=dyn_k_range, alpha=a)
-    print("Starting Outlier Detection over Loudness value (s02) --- with top_n -- {}, k_range -- {} and alpha -- {}"
-          .format(n, dyn_k_range, a))
+    dyn_rbod_outliers, dyn_lof_outliers, dyn_user_zscores = main_dyn(
+        top_n=n, k_range=dyn_k_range, alpha=a
+    )
+    print(
+        "Starting Outlier Detection over Loudness value (s02) --- with top_n -- {}, k_range -- {} and alpha -- {}".format(
+            n, dyn_k_range, a
+        )
+    )
     print("---------------------------------------------------------------")
     print("RBOD Top-n Outliers Static Similarity-- {}".format(rbod_outliers))
     print("LOF Top-n Outliers Static Similarity-- {}".format(lof_outliers))
-    print("Common Outliers Static Similarity-- {}".format(list(set([idx[0] for idx in rbod_outliers])
-                                              .intersection([idx[0] for idx in lof_outliers]))))
+    print(
+        "Common Outliers Static Similarity-- {}".format(
+            list(
+                set([idx[0] for idx in rbod_outliers]).intersection(
+                    [idx[0] for idx in lof_outliers]
+                )
+            )
+        )
+    )
     print("Obtained z-scores for all k_range are -- {}".format(user_zscores))
-    print('Writing the Outlier-Scores for each of the users to {/}')
+    print("Writing the Outlier-Scores for each of the users to {/}")
     print("---------------------------------------------------------------")
-    print("RBOD Top-n Outliers obtained from the time series recordings -- {}".format(dyn_rbod_outliers))
-    print("LOF Top-n Outliers  from the time series recordings -- {}".format(dyn_lof_outliers))
-    print("Common Outliers from the "
-          "time series recordings -- {}"
-          .format(list(set([idx[0] for idx in dyn_rbod_outliers])
-                       .intersection([idx[0] for idx in dyn_lof_outliers]))))
+    print(
+        "RBOD Top-n Outliers obtained from the time series recordings -- {}".format(
+            dyn_rbod_outliers
+        )
+    )
+    print(
+        "LOF Top-n Outliers  from the time series recordings -- {}".format(
+            dyn_lof_outliers
+        )
+    )
+    print(
+        "Common Outliers from the "
+        "time series recordings -- {}".format(
+            list(
+                set([idx[0] for idx in dyn_rbod_outliers]).intersection(
+                    [idx[0] for idx in dyn_lof_outliers]
+                )
+            )
+        )
+    )
     print("Obtained z-scores for all k_range are -- {}".format(dyn_user_zscores))
-    print('Writing the Outlier-Scores for each of the users to {/}')
+    print("Writing the Outlier-Scores for each of the users to {/}")
 
     if save:
         import pickle
+
         model_file = open("".join(properties.user_os_name + ".pckl"), "wb")
         dyn_model_file = open("".join(properties.user_os_dynname + ".pckl"), "wb")
         # Save the model

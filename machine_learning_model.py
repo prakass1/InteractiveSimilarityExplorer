@@ -22,20 +22,9 @@ def common_processing(df):
     df["tschq17"] = df["tschq17"].apply(lambda x: x / 100)
 
     # Feature engineering family history
-    df["tschq04"] = df.apply(create_cols_family_hist, axis=1)
+    df["tschq04"] = df.apply(smf.create_cols_family_hist, axis=1)
 
     return df
-
-
-# Common elements
-# Feature engineering family history
-def create_cols_family_hist(x):
-        if x["tschq04-1"] == "YES":
-            lst_sorted = sorted(x["tschq04-2"])
-            list_to_str = "_".join([val for val in lst_sorted])
-            return list_to_str
-        else:
-            return x["tschq04-1"]
 
 
 def get_common_cols(col1, col2):
@@ -78,7 +67,7 @@ def initial_processing():
     df["tschq16"] = df["tschq16"].apply(lambda x: x / 100)
     df["tschq17"] = df["tschq17"].apply(lambda x: x / 100)
 
-    df["tschq04"] = df.apply(create_cols_family_hist, axis=1)
+    df["tschq04"] = df.apply(smf.create_cols_family_hist, axis=1)
 
     df.drop(drop_cols, axis=1, inplace=True)
 
