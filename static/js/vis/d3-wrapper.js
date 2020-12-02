@@ -15,8 +15,8 @@ The architecture is defined in such a way that with minimal modifications it can
 var isTooltipHidden = true;
 var width = 350
 var height = 400
-var query = ""
-var query_ts = ""
+var query = $("#patient-id").val()
+var query_ts = $("#patient-id").val()
 var target_nn_static = ""
 var target_nn_ema = ""
 
@@ -85,17 +85,17 @@ function getprofile(combination, target) {
 }
 
 function getNodeColor(node) {
-    if (node.query === 0) {
-        query = node.user_id
-    }
+    //if (node.query === 0) {
+    //query = node.user_id
+    //}
     return node.query === 0 ? '#ff6310' : '#005b83'
 };
 
 //Similar function for ts
 function getNodeColor_ts(node) {
-    if (node.query === 0) {
-        query_ts = node.user_id
-    }
+    //if (node.query === 0) {
+    //    query_ts = node.user_id
+    //}
     return node.query === 0 ? '#ff6310' : '#005b83'
 };
 
@@ -276,7 +276,7 @@ function set_nearest_neighbor(links, flag) {
         }
         for (var i = 0; i < links.length; i++) {
             +
-            nn_id_dynamic.push(parseInt(links[i].target));
+                nn_id_dynamic.push(parseInt(links[i].target));
         }
     }
     //console.log(nearest_neighbor_ids);
