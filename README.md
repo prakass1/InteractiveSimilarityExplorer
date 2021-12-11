@@ -9,7 +9,7 @@
   a. For this purpose, a medical analytics tool is proposed using a new approach to visualize nearest neighbors, ability to perform predictions within the tool, and also better understanding the difference amongst the mHealth users. This tool and the results of such an interactive system to explore the usefulness of neighborhoods and the outlierness of an individual can help bring scientists in two fields come closer together. The medical practitioner can use such a system to better intuit factors that make users different, which researchers in computer science can use to develop better algorithms to discover these differences and visualize them in a way that non-experts can intuitively understand.  
  
 ## Workflow of the introduced methodologies:  
-![Workflow1](assets/activity_diagram_workflow-1.png)
+<img src="assets/activity_diagram_workflow-1.png" width="900" height="1000">
 
 ## Workflow of the medical analytics tool:  
 ![Workflow2](assets/interactions-bf-1.png)
