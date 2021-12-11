@@ -18,3 +18,9 @@
 <kbd>
 <img src="assets/dashboard.png" />
 </kbd>
+
+## Used technologies:  
+1. For machine learning algorithm analysis - python, pandas, sklearn, numpy, scipy.
+2. For backend component development - flask, json, pymongo
+3. For visualization component - plotly, d3.js, jquery, html, javascript
+
